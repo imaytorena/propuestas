@@ -10,7 +10,7 @@
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="min-h-screen flex flex-col bg-base-200">
+	<div class="pactos-layout-bg min-h-screen flex flex-col bg-base-200">
 		<div class="drawer">
 			<input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
 			<div class="drawer-content flex flex-col">

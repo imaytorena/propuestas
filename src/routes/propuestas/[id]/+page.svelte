@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import EvaluacionGrafico from '$lib/components/EvaluacionGrafico.svelte';
-  // import { get, post } from '$lib/utils/api';
 
   let propuesta = {
     id: '1',
@@ -102,7 +100,7 @@
     {#if error}
       <p class="text-red-500 mb-4">{error}</p>
     {:else}
-      <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="bg-base-100 rounded-lg shadow-lg p-8">
         <div class="flex justify-between items-start mb-6">
           <h1 class="text-3xl font-bold text-gray-900">{propuesta.nombre}</h1>
           <span class="px-3 py-1 rounded-full text-sm font-medium {getEstadoClass(propuesta.estado)}">
@@ -123,7 +121,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div class="bg-gray-50 rounded-lg p-4">
+          <div class="bg-base-200 bg-opacity-50 rounded-lg p-4">
             <h3 class="font-semibold text-gray-700 mb-2">Creador</h3>
             <div class="flex items-center">
               <svg
@@ -146,7 +144,7 @@
             </div>
           </div>
 
-          <div class="bg-gray-50 rounded-lg p-4">
+          <div class="bg-base-200 bg-opacity-50  rounded-lg p-4">
             <h3 class="font-semibold text-gray-700 mb-2">Categoría</h3>
             <div class="flex items-center">
               <svg

@@ -25,7 +25,7 @@
   };
 </script>
 
-<div class="bg-white rounded-lg p-4 shadow-sm">
+<div class="bg-base-200 bg-opacity-50  rounded-lg p-4 shadow-sm">
   <h3 class="text-lg font-semibold mb-3">Evaluación de la propuesta</h3>
   <div class="space-y-2">
     <div class="flex items-center gap-2">
