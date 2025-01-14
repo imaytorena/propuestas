@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import * as m from '$lib/paraglide/messages.js';
-	import EvaluacionGrafico from '$lib/components/EvaluacionGrafico.svelte';
-	import EvaluacionBadge from '$lib/components/EvaluacionBadge.svelte';
+	// import * as m from '$lib/paraglide/messages.js';
+	// import EvaluacionGrafico from '$lib/components/EvaluacionGrafico.svelte';
+	// import EvaluacionBadge from '$lib/components/EvaluacionBadge.svelte';
 	import CategoriaBadge from '$lib/components/CategoriaBadge.svelte';
 	import type { Propuesta } from '$lib/types';
 
@@ -94,44 +94,26 @@
 							<!--            </div>-->
 						</div>
 					</div>
-						<div class="flex flex-wrap mb-4">
-							{#each propuesta.categorias as categoria}
-								<CategoriaBadge categoria={categoria.nombre} />
-							{/each}
-						</div>
+					<div class="flex flex-wrap mb-4">
+						{#each propuesta.categorias as categoria}
+							<CategoriaBadge categoria={categoria.nombre} />
+						{/each}
+					</div>
 					<div class="flex justify-between items-center mt-4 text-sm text-neutral/70">
-						<div class="flex items-center">
-							<svg
-								class="w-4 h-4 mr-1"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-								/>
-							</svg>
-							1/5
+						<div class="flex gap-1 items-end justify-end">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 10a4 4 0 1 0 0-8a4 4 0 0 0 0 8"/><path fill="currentColor" d="M2.728 5.818a.75.75 0 1 0-1.455.364l.382 1.528a8.21 8.21 0 0 0 5.595 5.869v4.473c0 .898 0 1.648.08 2.242c.084.628.27 1.195.726 1.65c.455.456 1.022.642 1.65.726c.595.08 1.344.08 2.242.08h.104c.899 0 1.648 0 2.243-.08c.627-.084 1.194-.27 1.65-.726s.64-1.022.725-1.65c.08-.594.08-1.344.08-2.242v-4.193a2.62 2.62 0 0 1 1.856 2.208l.65 5.52a.75.75 0 0 0 1.489-.175l-.65-5.52A4.124 4.124 0 0 0 16 12.25H8.085A6.71 6.71 0 0 1 3.11 7.346z"/></svg>
+							<span>1/5</span>
 						</div>
 						{#if (!!propuesta?.fechaEntrega)}
-							<div class="flex items-center">
-								<svg
-									class="w-4 h-4 mr-1"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-									/>
+							<div class="flex items-center justify-center gap-2">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+									<g fill="none" stroke="currentColor" stroke-width="1.5">
+										<path
+											d="M2 12c0-3.771 0-5.657 1.172-6.828S6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12v2c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14z" />
+										<path stroke-linecap="round" d="M7 4V2.5M17 4V2.5" />
+										<circle cx="16.5" cy="16.5" r="1.5" />
+										<path stroke-linecap="round" d="M2.5 9h19" />
+									</g>
 								</svg>
 								<span>{`Entrega : ${propuesta.fechaEntrega.toLocaleDateString()}`}</span>
 							</div>
