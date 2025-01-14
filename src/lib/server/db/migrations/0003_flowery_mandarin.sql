@@ -1,0 +1,1 @@
+ALTER TABLE `propuestas` MODIFY COLUMN `estado` varchar(50) NOT NULL DEFAULT 'Iniciando';

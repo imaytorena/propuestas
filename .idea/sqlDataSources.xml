@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="6a36d019-cd80-4ca3-8e40-ddf5a681cab0" name="DDL Mapping">
+      <scope>
+        <node kind="schema" qname="local" />
+      </scope>
+    </mapping>
+  </component>
+</project>

@@ -1,0 +1,8 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"hello_world": "¡Hola, {name} desde es-mx!",
+	"hero_title": "Potenciando Acuerdos para un Mejor Futuro",
+	"hero_description": "Crea, gestiona y da seguimiento a tus acuerdos con facilidad. Nuestra plataforma proporciona herramientas seguras y eficientes para todas tus necesidades contractuales.",
+	"hero_cta_primary": "Comenzar",
+	"hero_cta_secondary": "Saber más"
+}

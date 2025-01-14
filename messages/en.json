@@ -1,0 +1,8 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"hello_world": "Hello, {name} from en!",
+	"hero_title": "Empowering Agreements for a Better Future",
+	"hero_description": "Create, manage, and track your agreements with ease. Our platform provides secure and efficient tools for all your contract needs.",
+	"hero_cta_primary": "Get Started",
+	"hero_cta_secondary": "Learn more"
+}
