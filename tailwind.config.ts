@@ -15,7 +15,7 @@ export default {
 		extend: {}
 	},
 	daisyui: {
-		themes: [{ pactos: theme }],
+		themes: [{ qci: theme }],
 		log: false
 	}
 } satisfies Config;

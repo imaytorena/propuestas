@@ -3,7 +3,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			<!-- Logo y descripción -->
 			<div class="space-y-4">
-				<h3 class="text-xl font-bold">Pactos</h3>
+				<h3 class="text-xl font-bold">SCU</h3>
 				<p class="text-neutral-300 text-sm">
 					Plataforma digital para conectar a estudiantes interesados en resolver problemas sociales concretos que
 					afectan tanto a su entorno académico como a sus comunidades locales.
@@ -53,7 +53,7 @@
 
 		<!-- Copyright -->
 		<div class="text-center text-neutral-400 text-sm">
-			<p>&copy; {new Date().getFullYear()} Pactos. Todos los derechos reservados.</p>
+			<p>&copy; {new Date().getFullYear()} SCU. Todos los derechos reservados.</p>
 		</div>
 	</div>
 </footer>
