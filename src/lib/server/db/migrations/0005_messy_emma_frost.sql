@@ -1,1 +1,0 @@
-ALTER TABLE `evaluaciones` DROP COLUMN `evaluado_id`;

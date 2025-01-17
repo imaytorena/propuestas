@@ -1,1 +1,0 @@
-ALTER TABLE `session` MODIFY COLUMN `ip_address` varchar(50);

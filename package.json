@@ -12,27 +12,26 @@
     "format": "prettier --write .",
     "lint": "prettier --check .",
     "db:start": "docker compose up",
-    "db:push": "drizzle-kit push",
-    "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio",
+    "db:stop": "docker compose down",
     "test:unit": "vitest",
     "test": "npm run test:unit -- --run"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
     "@iconify/svelte": "^4.2.0",
+    "@prisma/client": "^6.2.1",
+    "@sveltejs/adapter-cloudflare": "^5.0.1",
     "@sveltejs/adapter-node": "^5.2.9",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@types/node": "^22.10.5",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.23",
-    "drizzle-kit": "^0.22.0",
     "prettier": "^3.3.2",
     "prettier-plugin-svelte": "^3.2.6",
     "prettier-plugin-tailwindcss": "^0.6.5",
+    "prisma": "^6.2.1",
     "svelte": "^5.0.0",
-    "svelte-adapter-appengine": "^1.1.0",
     "svelte-check": "^4.0.0",
     "tailwindcss": "^3.4.9",
     "typescript": "^5.0.0",
@@ -41,14 +40,9 @@
   },
   "dependencies": {
     "@inlang/paraglide-sveltekit": "^0.11.1",
-    "@node-rs/argon2": "^1.1.0",
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
     "@tailwindcss/typography": "^0.5.15",
-    "drizzle-orm": "^0.33.0",
     "mysql2": "^3.11.0"
-  },
-  "resolutions": {
-    "drizzle-orm": "0.31.4"
   }
 }
