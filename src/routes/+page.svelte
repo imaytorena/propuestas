@@ -7,6 +7,7 @@
 
 	const { data } = $props();
 	let ideas: Idea[] = $state(data.ideas);
+	let selectedColonia = $state(null);
 
 	function toggleHistory(idea: Idea) {
 		ideas = ideas.map(i => ({
@@ -15,16 +16,28 @@
 			editing: false
 		}));
 	}
+
+	function handleColoniaClick(colonia) {
+		selectedColonia = colonia;
+		// Aquí puedes filtrar las ideas por colonia o realizar otras acciones
+		console.log('Colonia seleccionada:', colonia);
+	}
 </script>
 
 <div class="container mx-auto px-4 py-8">
 	<div class="mb-12">
-		<h2 class="text-3xl font-bold text-primary mb-4">Zona Metropolitana de Guadalajara</h2>
-		<Map />
+		<h2 class="text-3xl font-bold text-green-700 mb-4 font-delius">Zona Metropolitana de Guadalajara</h2>
+		<Map onColoniaClick={handleColoniaClick} />
+		{#if selectedColonia}
+			<div class="mt-4 p-4 bg-green-50 rounded-lg border-2 border-green-100">
+				<h3 class="text-xl font-semibold text-green-800">Colonia: {selectedColonia.nombre}</h3>
+				<p class="text-green-700/80">Municipio: {selectedColonia.municipio}</p>
+			</div>
+		{/if}
 	</div>
 	<div class="mb-12">
-		<h2 class="text-4xl font-bold text-primary mb-4">Ideas...</h2>
-		<h3 class="text-3xl font-bold text-base-content mb-4">¿Tienes una idea que debería conocer nuestra comunidad
+		<h2 class="text-4xl font-bold text-green-700 mb-4 font-delius">Ideas...</h2>
+		<h3 class="text-3xl font-bold text-green-600 mb-4 font-delius">¿Tienes una idea que debería conocer nuestra comunidad
 			universitaria?</h3>
 		<p class="text-xl text-base-content/80 w-2xl  mx-auto mb-8">
 			Queremos compartir propuestas enfocadas en las necesidades y deseos de los estudiantes de la UDG.

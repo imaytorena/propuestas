@@ -2,7 +2,42 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Scope+One&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Delius&family=Delius+Unicase&family=Poiret+One&family=Scope+One&family=Shadows+Into+Light&display=swap');
+
+@layer base {
+  body {
+    @apply bg-green-50;
+    font-family: 'Delius', cursive;
+  }
+}
+
+@layer components {
+  .font-delius {
+    font-family: 'Delius', cursive;
+  }
+}
+
+@layer utilities {
+  .text-primary {
+    @apply text-green-700;
+  }
+  
+  .bg-primary {
+    @apply bg-green-600;
+  }
+
+  .border-primary {
+    @apply border-green-600;
+  }
+
+  .hover:text-primary:hover {
+    @apply hover:text-green-800;
+  }
+
+  .hover:bg-primary:hover {
+    @apply hover:bg-green-700;
+  }
+}
 
 body .qci-layout-bg {
     background-image: radial-gradient(green 1.5px, transparent 0) !important;

@@ -1,17 +1,67 @@
 <script>
   import { onMount } from 'svelte';
+  import colonias from '$lib/data/zmg-colonias.json';
 
   let mapElement;
+  export let onColoniaClick = (colonia) => {};
+
+  function getStyle(feature) {
+    return {
+      fillColor: '#2F855A', // Un verde bosque suave
+      weight: 2,
+      opacity: 1,
+      color: '#E2E8F0',
+      dashArray: '3',
+      fillOpacity: 0.2
+    };
+  }
+
+  function highlightFeature(e) {
+    const layer = e.target;
+    layer.setStyle({
+      weight: 3,
+      color: '#48BB78',
+      dashArray: '',
+      fillOpacity: 0.5
+    });
+    layer.bringToFront();
+  }
+
+  function resetHighlight(e, geoJson) {
+    geoJson.resetStyle(e.target);
+  }
 
   onMount(() => {
     // Coordenadas del centro de la Zona Metropolitana de Guadalajara
-    const map = L.map(mapElement).setView([20.6597, -103.3496], 11);
+    const map = L.map(mapElement).setView([20.6597, -103.3496], 12);
 
     // Añadir el mapa base en escala de grises usando CartoDB
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: 'OpenStreetMap, CartoDB',
       subdomains: 'abcd',
       maxZoom: 19
+    }).addTo(map);
+
+    // Añadir las colonias como una capa interactiva
+    const geoJson = L.geoJSON(colonias, {
+      style: getStyle,
+      onEachFeature: (feature, layer) => {
+        // Popup con información de la colonia
+        layer.bindPopup(`
+          <div class="font-bold">${feature.properties.nombre}</div>
+          <div class="text-sm">${feature.properties.municipio}</div>
+        `);
+
+        // Eventos de interacción
+        layer.on({
+          mouseover: highlightFeature,
+          mouseout: (e) => resetHighlight(e, geoJson),
+          click: (e) => {
+            map.fitBounds(e.target.getBounds());
+            onColoniaClick(feature.properties);
+          }
+        });
+      }
     }).addTo(map);
 
     // Definir los límites aproximados de la ZMG
@@ -40,7 +90,22 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px -3px rgba(47, 133, 90, 0.1);
+    border: 2px solid rgba(47, 133, 90, 0.1);
+  }
+
+  :global(.leaflet-popup-content) {
+    margin: 8px 12px;
+    font-family: 'Delius', cursive;
+  }
+
+  :global(.leaflet-popup-content-wrapper) {
     border-radius: 8px;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    background: #f0f7f4;
+  }
+
+  :global(.leaflet-popup-tip) {
+    background: #f0f7f4;
   }
 </style>
