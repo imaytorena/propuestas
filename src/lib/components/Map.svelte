@@ -1,11 +1,13 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import colonias from '$lib/data/zmg-colonias.json';
+	import type { Geometry } from 'geojson';
+	import type { LeafletMouseEvent, GeoJSON } from 'leaflet';
+  
+  let mapElement: string | HTMLElement;
+  export let onColoniaClick = (colonia: any) => {console.log(colonia)};
 
-  let mapElement;
-  export let onColoniaClick = (colonia) => {};
-
-  function getStyle(feature) {
+  function getStyle(feature: any) {
     return {
       fillColor: '#2F855A', // Un verde bosque suave
       weight: 2,
@@ -16,7 +18,7 @@
     };
   }
 
-  function highlightFeature(e) {
+  function highlightFeature(e: any) {
     const layer = e.target;
     layer.setStyle({
       weight: 3,
@@ -27,7 +29,7 @@
     layer.bringToFront();
   }
 
-  function resetHighlight(e, geoJson) {
+  function resetHighlight(e: LeafletMouseEvent, geoJson: GeoJSON<any, Geometry>) {
     geoJson.resetStyle(e.target);
   }
 
@@ -39,7 +41,8 @@
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: 'OpenStreetMap, CartoDB',
       subdomains: 'abcd',
-      maxZoom: 19
+      maxZoom: 17,
+      minZoom: 11
     }).addTo(map);
 
     // Añadir las colonias como una capa interactiva
@@ -65,7 +68,7 @@
     }).addTo(map);
 
     // Definir los límites aproximados de la ZMG
-    const zmgBounds = [
+    const zmgBounds: number[][] = [
       [20.5200, -103.5000], // Suroeste
       [20.8000, -103.2000]  // Noreste
     ];
@@ -73,7 +76,7 @@
     // Restringir el área de visualización
     map.setMaxBounds(zmgBounds);
     map.on('drag', () => {
-      map.panInsideBounds(zmgBounds, { animate: false });
+      return map.panInsideBounds(zmgBounds, { animate: false });
     });
 
     return () => {
