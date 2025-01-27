@@ -1,11 +1,12 @@
-import { prisma } from '$lib/server/prisma';
+import prisma from '$lib/server/db';
 import { json } from '@sveltejs/kit';
+import { db } from '$lib/server/db';
 
 export const POST = async ({ url, request }) => {
 	const id = Number(url.searchParams.get('id'));
 	const { nombre, descripcion } = await request.json();
 
-	const result = await prisma.propuesta.update({
+	const result = await db.propuesta.update({
 		where: {
 			id: id
 		},
