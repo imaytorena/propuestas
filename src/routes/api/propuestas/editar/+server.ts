@@ -1,21 +1,20 @@
-import { db } from '$lib/server/db';
-import { propuesta } from '$lib/server/db/schema';
+import { prisma } from '$lib/server/prisma';
 import { json } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
 
 export const POST = async ({ url, request }) => {
 	const id = Number(url.searchParams.get('id'));
 	const { nombre, descripcion } = await request.json();
 
-	const result = await db
-		.update(propuesta)
-		.set({
+	const result = await prisma.propuesta.update({
+		where: {
+			id: id
+		},
+		data: {
 			nombre: String(nombre),
 			descripcion: String(descripcion),
 			updatedAt: new Date()
-		})
-		.where(eq(propuesta.id, id))
-		.$returningAll();
+		}
+	});
 
-	return json(result[0]);
+	return json(result);
 };
