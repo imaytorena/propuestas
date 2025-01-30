@@ -95,7 +95,7 @@
     margin: 0 auto;
     border-radius: 12px;
     box-shadow: 0 4px 15px -3px rgba(47, 133, 90, 0.1);
-    border: 2px solid rgba(47, 133, 90, 0.1);
+    border: 5px solid #37AA56;
   }
 
   :global(.leaflet-popup-content) {

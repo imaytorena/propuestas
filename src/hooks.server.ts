@@ -6,6 +6,7 @@ const handleParaglide: Handle = i18n.handle();
 
 const handleAuth: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get(auth.sessionCookieName);
+	console.log({sessionToken});
 	if (!sessionToken) {
 		event.locals.usuario = null;
 		event.locals.session = null;
@@ -13,10 +14,11 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 	}
 
 	const { session, usuario } = await auth.validateSessionToken(sessionToken);
+	console.log({session, usuario});
 	if (session) {
-		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
+		auth.setSessionTokenCookie(event.cookies, sessionToken, session.expiresAt);
 	} else {
-		auth.deleteSessionTokenCookie(event);
+		auth.deleteSessionTokenCookie(event.cookies);
 	}
 
 	event.locals.usuario = usuario;

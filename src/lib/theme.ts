@@ -1,7 +1,7 @@
 export const theme = {
-	primary: '#d48a00', // fallback f97316
+	primary: '#37AA56', // fallback f97316
 	secondary: '#ecd06f',
-	accent: '#f97316',
+	accent: '#F8F8F8',
 	neutral: '#2779a7',
 	'base-100': '#F2F0EB',
 	info: '#0093dc',

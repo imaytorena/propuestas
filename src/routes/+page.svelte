@@ -24,9 +24,11 @@
 	}
 </script>
 
-<div class="container mx-auto px-4 py-8">
+<div class="container  max-w-5xl  mx-auto px-4 py-8">
 	<div class="mb-12">
-		<h2 class="text-3xl font-bold text-green-700 mb-4 font-delius">Zona Metropolitana de Guadalajara</h2>
+		<h2 class="text-xl font-bold text-green-700 mb-4 font-delius">
+			Problematicas por colonia en la Zona Metropolitana de Guadalajara
+		</h2>
 		<Map onColoniaClick={handleColoniaClick} />
 		{#if selectedColonia}
 			<div class="mt-4 p-4 bg-green-50 rounded-lg border-2 border-green-100">
@@ -35,13 +37,18 @@
 			</div>
 		{/if}
 	</div>
-	<div class="mb-12">
-		<h2 class="text-4xl font-bold text-green-700 mb-4 font-delius">Ideas...</h2>
+	<div class="flex w-full justify-center items-center gap-5 flex-wrap">
+		{#each ["Ideas", "Actividades", "Propuestas", "Comunidades"] as tab}
+		<div class="btn btn-ghost border-2 btn-lg border-green-700 hover:border-green-700 text-primary">{tab}</div>
+		{/each}
+	</div>
+	<div class="m-12">
+		<!-- <h2 class="text-4xl font-bold text-green-700 mb-4 font-delius">Ideas...</h2>
 		<h3 class="text-3xl font-bold text-green-600 mb-4 font-delius">¿Tienes una idea que debería conocer nuestra comunidad
 			universitaria?</h3>
 		<p class="text-xl text-base-content/80 w-2xl  mx-auto mb-8">
 			Queremos compartir propuestas enfocadas en las necesidades y deseos de los estudiantes de la UDG.
-		</p>
+		</p> -->
 		<IdeasCrear {ideas} />
 	</div>
 

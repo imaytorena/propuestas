@@ -1,7 +1,7 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import type { Cookies } from '@sveltejs/kit';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeBase64url, encodeHexLowerCase } from '@oslojs/encoding';
-import { db } from '$lib/server/db';
+import prisma from '$lib/server/db';
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -18,7 +18,7 @@ export async function createSession(
 	ipAddress: string | null
 ) {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	const session = await db.session.create({
+	const session = await prisma.session.create({
 		data: {
 			id: sessionId,
 			usuarioId,
@@ -31,9 +31,10 @@ export async function createSession(
 }
 
 export async function validateSessionToken(token: string) {
-	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	const result = await db.session.findUnique({
-		where: { id: sessionId },
+	// const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+	// console.log({sessionId});
+	const result = await prisma.session.findUnique({
+		where: { id: token },
 		include: {
 			usuario: {
 				select: {
@@ -43,6 +44,7 @@ export async function validateSessionToken(token: string) {
 			}
 		}
 	});
+	console.log({result});
 
 	if (!result || !result.usuario) {
 		return { session: null, usuario: null };
@@ -51,7 +53,7 @@ export async function validateSessionToken(token: string) {
 
 	const sessionExpired = Date.now() >= session.expiresAt.getTime();
 	if (sessionExpired) {
-		await db.session.delete({
+		await prisma.session.delete({
 			where: { id: session.id }
 		});
 		return { session: null, usuario: null };
@@ -60,7 +62,7 @@ export async function validateSessionToken(token: string) {
 	const renewSession = Date.now() >= session.expiresAt.getTime() - DAY_IN_MS * 15;
 	if (renewSession) {
 		const newExpiresAt = new Date(Date.now() + DAY_IN_MS * 30);
-		const updatedSession = await db.session.update({
+		const updatedSession = await prisma.session.update({
 			where: { id: session.id },
 			data: { expiresAt: newExpiresAt }
 		});
@@ -73,20 +75,21 @@ export async function validateSessionToken(token: string) {
 export type SessionValidationResult = Awaited<ReturnType<typeof validateSessionToken>>;
 
 export async function invalidateSession(sessionId: string) {
-	await db.session.delete({
+	await prisma.session.delete({
 		where: { id: sessionId }
 	});
 }
 
-export function setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date) {
-	event.cookies.set(sessionCookieName, token, {
+export function setSessionTokenCookie(cookies: Cookies, token: string, expiresAt: Date) {
+	cookies.set(sessionCookieName, token, {
 		expires: expiresAt,
+		path: '/',
+	});
+}
+
+export function deleteSessionTokenCookie(cookies: Cookies) {
+	cookies.delete(sessionCookieName, {
 		path: '/'
 	});
 }
 
-export function deleteSessionTokenCookie(event: RequestEvent) {
-	event.cookies.delete(sessionCookieName, {
-		path: '/'
-	});
-}

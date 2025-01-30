@@ -35,7 +35,6 @@
 			const response = await fetch(`/api/ideas/like?id=${idea.id}`, { method: 'GET' });
 			const data = await response.json();
 			liked = !liked;
-			console.log(data);
 			idea.likes = data.count;
 		} catch (e) {
 			// console.error(e?.message ?? 'Hubo un error');

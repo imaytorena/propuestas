@@ -7,7 +7,6 @@
 	import type { Propuesta } from '$lib/types';
 
 	const { data } = $props();
-	// console.log(data)
 	let propuestas: Propuesta[] = $state(data.propuestas);
 	let error = '';
 
