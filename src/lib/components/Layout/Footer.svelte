@@ -1,9 +1,14 @@
+<script>
+	// Obtener el año actual para el copyright
+	const currentYear = new Date().getFullYear();
+</script>
+
 <footer class="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white py-12 mt-8">
 	<div class="container mx-auto px-4">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			<!-- Logo y descripción -->
 			<div class="space-y-4">
-				<h3 class="text-xl font-bold">SCU</h3>
+				<h3 class="text-xl font-bold">ColectividApp</h3>
 				<p class="text-neutral-300 text-sm">
 					Plataforma digital para conectar a estudiantes interesados en resolver problemas sociales concretos que
 					afectan tanto a su entorno académico como a sus comunidades locales.
@@ -14,9 +19,10 @@
 			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Enlaces Rápidos</h4>
 				<ul class="space-y-2">
-					<li><a href="/static" class="text-neutral-300 hover:text-white transition-colors">Inicio</a></li>
+					<li><a href="/" class="text-neutral-300 hover:text-white transition-colors">Inicio</a></li>
+					<li><a href="/actividades" class="text-neutral-300 hover:text-white transition-colors">Actividades</a></li>
 					<li><a href="/propuestas" class="text-neutral-300 hover:text-white transition-colors">Propuestas</a></li>
-					<li><a href="/about" class="text-neutral-300 hover:text-white transition-colors">Acerca de</a></li>
+					<li><a href="/comunidades" class="text-neutral-300 hover:text-white transition-colors">Comunidades</a></li>
 				</ul>
 			</div>
 
@@ -53,12 +59,7 @@
 
 		<!-- Copyright -->
 		<div class="text-center text-neutral-400 text-sm">
-			<p>&copy; {new Date().getFullYear()} SCU. Todos los derechos reservados.</p>
+			<p>&copy; {new Date().getFullYear()} ColectividApp. Todos los derechos reservados.</p>
 		</div>
 	</div>
 </footer>
-
-<script>
-	// Obtener el año actual para el copyright
-	const currentYear = new Date().getFullYear();
-</script>

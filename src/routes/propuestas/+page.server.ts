@@ -14,7 +14,7 @@ export const load: PageServerLoad = async () => {
 			}
 		}
 	});
-
+console.log({propuestas});
 	return {
 		propuestas
 	};
