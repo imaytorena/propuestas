@@ -42,6 +42,7 @@ model Usuario {
   mensajesRecibidos Mensaje[] @relation("MensajesRecibidos")
   representante    Representante[]
   miembros        Miembro[]
+  likes           Like[]
 
   @@map("usuarios")
 }
@@ -209,7 +210,7 @@ model ComunidadCategorias {
 
 model Idea {
   id          Int       @id @default(autoincrement())
-  likes       Json?
+  likes       Like[]
   titulo      String    @db.VarChar(255)
   descripcion String    @db.Text
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -227,4 +228,18 @@ model Edicion {
   idea        Idea      @relation(fields: [ideaId], references: [id])
 
   @@map("ediciones")
+}
+
+model Like {
+  id          Int       @id @default(autoincrement())
+  ideaId      Int       @map("idea_id")
+  usuarioId   Int?      @map("usuario_id")
+  ipAddress   String    @map("ip_address") @db.VarChar(50)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  
+  idea        Idea      @relation(fields: [ideaId], references: [id])
+  usuario     Usuario?  @relation(fields: [usuarioId], references: [id])
+
+  @@unique([ideaId, ipAddress, usuarioId])
+  @@map("likes")
 }
