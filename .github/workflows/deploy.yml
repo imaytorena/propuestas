@@ -96,6 +96,5 @@ jobs:
             echo "DIRECT_URL=$DIRECT_URL" >> .env
             echo "PORT=3000" >> .env
             echo "ORIGIN=$PUBLIC_URL" >> .env
-            cp -a $VM_PATH/build/. /var/www/production/
           EOF
           rm -f private_key
