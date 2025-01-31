@@ -87,7 +87,7 @@ jobs:
           mkdir -p ~/.ssh
           echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null" > ~/.ssh/config
           chmod 600 ~/.ssh/config
-          
+
           ssh -i private_key -o StrictHostKeyChecking=no $VM_USER@$VM_IP << EOF
             cd $VM_PATH
             tar xzf deploy.tar.gz
@@ -96,5 +96,6 @@ jobs:
             echo "DIRECT_URL=$DIRECT_URL" >> .env
             echo "PORT=3000" >> .env
             echo "ORIGIN=$PUBLIC_URL" >> .env
+            cp -a $VM_PATH/build/. /var/www/production/
           EOF
           rm -f private_key
