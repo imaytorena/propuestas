@@ -10,7 +10,6 @@ const config = {
 	kit: {
 		// Otras configuraciones...
 		env: {
-			public: {},
 			private: {
 				DIRECT_URL: process.env.DIRECT_URL, // Para el servidor
 				DATABASE_URL: process.env.DATABASE_URL // Para el servidor
