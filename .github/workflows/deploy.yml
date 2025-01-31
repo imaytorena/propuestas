@@ -41,8 +41,14 @@ jobs:
 
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
-          scp -i private_key -r ./* $VM_USER@$VM_IP:$VM_PATH
-          ssh -i private_key $VM_USER@$VM_IP << EOF
+          # Create SSH config to disable host key checking
+          mkdir -p ~/.ssh
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null" > ~/.ssh/config
+          chmod 600 ~/.ssh/config
+          
+          # Deploy files
+          scp -i private_key -o StrictHostKeyChecking=no -r ./* $VM_USER@$VM_IP:$VM_PATH
+          ssh -i private_key -o StrictHostKeyChecking=no $VM_USER@$VM_IP << EOF
             cd $VM_PATH
             echo "DATABASE_URL=prisma://$DATABASE_URL" > .env
             echo "DIRECT_URL=$DIRECT_URL" >> .env
