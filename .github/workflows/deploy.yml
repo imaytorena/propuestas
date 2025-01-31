@@ -69,7 +69,7 @@ jobs:
           scp -i private_key -o StrictHostKeyChecking=no deploy.tar.gz $VM_USER@$VM_IP:$VM_PATH/
           rm -f private_key
 
-  deploy:
+  pre-deploy:
     needs: transfer
     runs-on: ubuntu-latest
     steps:
@@ -96,7 +96,5 @@ jobs:
             echo "DIRECT_URL=$DIRECT_URL" >> .env
             echo "PORT=3000" >> .env
             echo "ORIGIN=$PUBLIC_URL" >> .env
-            npm ci --production
-            pm2 restart app || pm2 start "node build" --name "app"
           EOF
           rm -f private_key
