@@ -36,6 +36,7 @@ jobs:
           tar czf deploy.tar.gz \
             build \
             package*.json \
+            node_server \
             prisma \
             node_modules/@prisma \
             node_modules/.prisma
