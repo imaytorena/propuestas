@@ -6,7 +6,7 @@ on:
       - main # Change this to match your deployment branch
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: prisma://${{ secrets.DATABASE_URL }}
@@ -40,21 +40,54 @@ jobs:
             node_modules/@prisma \
             node_modules/.prisma
 
-      - name: Deploy to Google Cloud VM
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-build
+          path: deploy.tar.gz
+
+  transfer:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-build
+
+      - name: Transfer to VM
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VM_USER: ${{ secrets.VM_USER }}
+          VM_IP: ${{ secrets.VM_IP }}
+          VM_PATH: '/home/${{ secrets.VM_USER }}/app'
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
+          mkdir -p ~/.ssh
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null" > ~/.ssh/config
+          chmod 600 ~/.ssh/config
+          scp -i private_key -o StrictHostKeyChecking=no deploy.tar.gz $VM_USER@$VM_IP:$VM_PATH/
+          rm -f private_key
+
+  deploy:
+    needs: transfer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on VM
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+          DATABASE_URL: prisma://${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
           VM_USER: ${{ secrets.VM_USER }}
           VM_IP: ${{ secrets.VM_IP }}
-          VM_PATH: '/home/${{ secrets.VM_USER }}/app' # Update this with the correct path
-
+          VM_PATH: '/home/${{ secrets.VM_USER }}/app'
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
           mkdir -p ~/.ssh
           echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null" > ~/.ssh/config
           chmod 600 ~/.ssh/config
           
-          scp -i private_key -o StrictHostKeyChecking=no deploy.tar.gz $VM_USER@$VM_IP:$VM_PATH/
           ssh -i private_key -o StrictHostKeyChecking=no $VM_USER@$VM_IP << EOF
             # Load environment
             source ~/.bashrc

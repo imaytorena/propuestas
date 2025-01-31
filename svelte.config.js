@@ -8,8 +8,14 @@ const config = {
 			// you can override defaults here
 			out: 'build',
 			precompress: false,
-			envPrefix: ''
-		})
+			envPrefix: '',
+			polyfill: true
+		}),
+		files: {
+			hooks: {
+				server: 'src/hooks.server'
+			}
+		}
 	},
 	preprocess: vitePreprocess()
 };
