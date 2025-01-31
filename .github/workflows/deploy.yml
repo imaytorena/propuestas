@@ -31,7 +31,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           VM_USER: ${{ secrets.VM_USER }}
           VM_IP: ${{ secrets.VM_IP }}
-          VM_PATH: '/home/${{ secrets.VM_USER }}/svelte-app' # Update this with the correct path
+          VM_PATH: '/home/${{ secrets.VM_USER }}/app' # Update this with the correct path
 
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
