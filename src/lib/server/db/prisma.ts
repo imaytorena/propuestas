@@ -1,12 +1,14 @@
 // import { PrismaClient } from '@prisma/client'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { DATABASE_URL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
+
+const databaseUrl = env.DATABASE_URL;
 
 const prisma = new PrismaClient({
 	datasources: {
 		db: {
-			url: DATABASE_URL
+			url: databaseUrl
 		}
 	}
 }).$extends(withAccelerate());
