@@ -89,12 +89,6 @@ jobs:
           chmod 600 ~/.ssh/config
           
           ssh -i private_key -o StrictHostKeyChecking=no $VM_USER@$VM_IP << EOF
-            # Load environment
-            source ~/.bashrc
-            source ~/.profile
-            export NVM_DIR="\$HOME/.nvm"
-            [ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"
-            
             cd $VM_PATH
             tar xzf deploy.tar.gz
             rm deploy.tar.gz
@@ -102,20 +96,7 @@ jobs:
             echo "DIRECT_URL=$DIRECT_URL" >> .env
             echo "PORT=3000" >> .env
             echo "ORIGIN=$PUBLIC_URL" >> .env
-            
-            # Use full paths if needed
-            if command -v npm &> /dev/null; then
-              npm ci --production --ignore-scripts
-            else
-              echo "Using NVM npm"
-              \$NVM_DIR/versions/node/*/bin/npm ci --production --ignore-scripts
-            fi
-            
-            if command -v pm2 &> /dev/null; then
-              pm2 restart app || pm2 start "node build" --name "app"
-            else
-              echo "Using global pm2"
-              \$NVM_DIR/versions/node/*/bin/pm2 restart app || \$NVM_DIR/versions/node/*/bin/pm2 start "node build" --name "app"
-            fi
+            npm ci --production
+            pm2 restart app || pm2 start "node build" --name "app"
           EOF
           rm -f private_key
