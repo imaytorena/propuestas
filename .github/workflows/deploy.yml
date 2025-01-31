@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL: prisma://${{ secrets.DATABASE_URL }}
       DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
     steps:
@@ -43,7 +43,7 @@ jobs:
           scp -i private_key -r ./* $VM_USER@$VM_IP:$VM_PATH
           ssh -i private_key $VM_USER@$VM_IP << EOF
             cd $VM_PATH
-            echo "DATABASE_URL=$DATABASE_URL" > .env
+            echo "DATABASE_URL=prisma://$DATABASE_URL" > .env
             echo "DIRECT_URL=$DIRECT_URL" >> .env
             npm ci
             pm2 restart app || pm2 start npm --name "app" -- start
