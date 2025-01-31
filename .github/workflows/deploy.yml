@@ -31,6 +31,15 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Create deployment package
+        run: |
+          tar czf deploy.tar.gz \
+            build \
+            package*.json \
+            prisma \
+            node_modules/@prisma \
+            node_modules/.prisma
+
       - name: Deploy to Google Cloud VM
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -41,21 +50,21 @@ jobs:
 
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
-          # Create SSH config to disable host key checking
           mkdir -p ~/.ssh
           echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null" > ~/.ssh/config
           chmod 600 ~/.ssh/config
           
-          # Deploy files
-          scp -i private_key -o StrictHostKeyChecking=no -r ./* $VM_USER@$VM_IP:$VM_PATH
+          # Deploy only necessary files
+          scp -i private_key -o StrictHostKeyChecking=no deploy.tar.gz $VM_USER@$VM_IP:$VM_PATH/
           ssh -i private_key -o StrictHostKeyChecking=no $VM_USER@$VM_IP << EOF
             cd $VM_PATH
+            tar xzf deploy.tar.gz
+            rm deploy.tar.gz
             echo "DATABASE_URL=prisma://$DATABASE_URL" > .env
             echo "DIRECT_URL=$DIRECT_URL" >> .env
             echo "PORT=3000" >> .env
             echo "ORIGIN=$PUBLIC_URL" >> .env
-            npm ci
-            npm run build
+            npm ci --production --ignore-scripts
             pm2 restart app || pm2 start "node build" --name "app"
           EOF
           rm -f private_key
