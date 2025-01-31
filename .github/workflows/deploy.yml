@@ -1,0 +1,47 @@
+name: Deploy Svelte to Google Cloud VM
+
+on:
+  push:
+    branches:
+      - main # Change this to match your deployment branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js and dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to Google Cloud VM
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VM_USER: ${{ secrets.VM_USER }}
+          VM_IP: ${{ secrets.VM_IP }}
+          VM_PATH: '/home/${{ secrets.VM_USER }}/svelte-app' # Update this with the correct path
+
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
+          scp -i private_key -r ./* $VM_USER@$VM_IP:$VM_PATH
+          ssh -i private_key $VM_USER@$VM_IP << EOF
+            cd $VM_PATH
+            echo "DIRECT_URL=$DIRECT_URL" > .env
+            echo "DATABASE_URL=$DATABASE_URL" > .env
+            npm ci
+            pm2 restart app || pm2 start npm --name "app" -- start
+            exit
+          EOF
+          rm -f private_key
