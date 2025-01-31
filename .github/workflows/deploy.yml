@@ -20,7 +20,12 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies and build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
         run: |
+          echo "DIRECT_URL=$DIRECT_URL" > .env
+          echo "DATABASE_URL=$DATABASE_URL" > .env
           npm ci
           npm run build
 
