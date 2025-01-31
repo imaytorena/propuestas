@@ -96,7 +96,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {#each comunidades as comunidad (comunidad.id)}
-      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+      <div class="bg-gray-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
         <div class="h-48 overflow-hidden">
           <img
             src={comunidad.imagen}
@@ -167,7 +167,7 @@
 
 {#if showCreateModal}
   <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg max-w-md w-full p-6">
+    <div class="bg-base-100 rounded-lg max-w-md w-full p-6">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">Crear Nueva Comunidad</h2>
         <button

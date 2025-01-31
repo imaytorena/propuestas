@@ -1,12 +1,9 @@
 // import { faker } from '@faker-js/faker';
 // or, if desiring a different locale
 import { Faker, es_MX, simpleFaker } from '@faker-js/faker';
-import * as table from '$lib/server/db/schema';
-import type { Usuario } from '$lib/server/db/schema';
-import { db } from '$lib/server/db';
+import type { Like, UsuarioColumns, IdeaColumns, Edicion, LikeColumns } from '$lib/types';
 
-// const { person, internet, helpers } = faker;
-export const usuarioFaker = ({ id }: { id: number }): Usuario => {
+export const usuarioFaker = ({ id }: { id: number }): UsuarioColumns => {
 	const { person, internet, date } = new Faker({ locale: [es_MX] });
 	const nombre = person.firstName();
 	const apellido1 = person.lastName();
@@ -23,6 +20,30 @@ export const usuarioFaker = ({ id }: { id: number }): Usuario => {
 		carreraId: simpleFaker.number.int(10),
 		bio: person.bio(),
 		age: 25,
-		createdAt: date.soon({ days: 7 })
+		createdAt: date.soon({ days: 7 }),
+		updatedAt: date.soon({ days: 7 })
 	};
 };
+
+export const ideaFaker = ({ id }: { id: number }): IdeaColumns => {
+	const { lorem, date } = new Faker({ locale: [es_MX] });
+	return {
+		id: id,
+		titulo: lorem.sentence({ min: 3, max: 8 }),
+		descripcion: lorem.paragraphs(2),
+		createdAt: date.recent(),
+		updatedAt: date.recent()
+	};
+};
+
+export const likeFaker = ({ id, ideaId, usuarioId = null }: { id: number; ideaId: number; usuarioId?: number | null }): LikeColumns => {
+	const { internet, date } = new Faker({ locale: [es_MX] });
+	return {
+		id: id,
+		ideaId: ideaId,
+		usuarioId: usuarioId,
+		ipAddress: internet.ip(),
+		createdAt: date.recent()
+	};
+};
+
