@@ -1,8 +1,8 @@
 module.exports = {
 	apps: [
 		{
-			name: 'colectividapp',
-			script: 'index.js',
+			name: 'colectividapp-server',
+			script: 'server.js',
 			watch: false,
 			instances: 'max',
 			exec_mode: 'cluster'
