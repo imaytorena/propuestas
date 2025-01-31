@@ -34,6 +34,7 @@ jobs:
       - name: Deploy to Google Cloud VM
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
           VM_USER: ${{ secrets.VM_USER }}
           VM_IP: ${{ secrets.VM_IP }}
           VM_PATH: '/home/${{ secrets.VM_USER }}/app' # Update this with the correct path
@@ -45,7 +46,10 @@ jobs:
             cd $VM_PATH
             echo "DATABASE_URL=prisma://$DATABASE_URL" > .env
             echo "DIRECT_URL=$DIRECT_URL" >> .env
+            echo "PORT=3000" >> .env
+            echo "ORIGIN=$PUBLIC_URL" >> .env
             npm ci
-            pm2 restart app || pm2 start npm --name "app" -- start
+            npm run build
+            pm2 restart app || pm2 start "node build" --name "app"
           EOF
           rm -f private_key
