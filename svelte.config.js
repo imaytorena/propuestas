@@ -8,13 +8,15 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		// Otras configuraciones...
-		env: {
-			private: {
-				DIRECT_URL: process.env.DIRECT_URL, // Para el servidor
-				DATABASE_URL: process.env.DATABASE_URL // Para el servidor
-			}
-		}
+		adapter: adapter({
+			// default options are shown. On some platforms
+			// these options are set automatically — see below
+			pages: 'build',
+			assets: 'build',
+			fallback: undefined,
+			precompress: false,
+			strict: true
+		})
 	}
 };
 

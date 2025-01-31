@@ -1,7 +1,7 @@
 // import { PrismaClient } from '@prisma/client'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { env } from '$env/dynamic/private';
+import { env } from '$env/static/private';
 
 const prisma = new PrismaClient({
 	datasources: {
