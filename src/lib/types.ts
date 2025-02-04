@@ -1,4 +1,5 @@
 export type PropuestaEstado = 'Iniciando' | 'En Progreso' | 'Finalizado';
+
 export type Usuario = {
 	id: number;
 	nombre: string;
@@ -12,18 +13,40 @@ export type Usuario = {
 	ediciones?: Edicion[];
 	bio?: string;
 	age?: number;
-}
+};
+
 export interface UsuarioColumns extends Usuario {
 	likes?: LikeColumns[];
 	ediciones?: EdicionColumns[];
 	createdAt: Date;
 	updatedAt: Date;
-}
+};
 
 export type Evaluacion = {
 	buena: number;
 	regular: number;
 	mala: number;
+};
+
+export type Comunidad = {
+	id: number;
+	nombre: string;
+	municipio: string;
+};
+
+export type Categoria = {
+	id: number;
+	nombre: string;
+};
+
+export type Actividad = {
+	id: number;
+	nombre: string;
+	descripcion: string;
+	estado: string | PropuestaEstado;
+	fechaEntrega?: Date | null;
+	comunidades: Comunidad[],
+	categorias?: Categoria[];
 };
 
 export type Propuesta = {
@@ -43,7 +66,7 @@ export type Like = {
 };
 export interface LikeColumns extends Like {
 	createdAt: Date;
-}
+};
 
 export type Edicion = {
 	id: number;
@@ -53,7 +76,7 @@ export type Edicion = {
 export interface EdicionColumns extends Edicion {
 	createdAt: Date;
 	updatedAt: Date;
-}
+};
 
 export type Idea = {
 	id: number;
@@ -66,9 +89,3 @@ export type Idea = {
 	editing?: boolean;
 	showingHistory?: boolean;
 };
-
-export interface IdeaColumns extends Idea {
-	likes?: LikeColumns[];
-	ediciones?: EdicionColumns[];
-	updatedAt: Date;
-}

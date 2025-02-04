@@ -11,6 +11,8 @@ const prisma = new PrismaClient({
 			url: databaseUrl
 		}
 	}
-}).$extends(withAccelerate());
+});
+// TODO: Only production	
+// .$extends(withAccelerate());
 
 export default prisma;
