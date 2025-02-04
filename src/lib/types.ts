@@ -13,11 +13,7 @@ export type Usuario = {
 	ediciones?: Edicion[];
 	bio?: string;
 	age?: number;
-};
-
-export interface UsuarioColumns extends Usuario {
-	likes?: LikeColumns[];
-	ediciones?: EdicionColumns[];
+} | {
 	createdAt: Date;
 	updatedAt: Date;
 };
@@ -43,10 +39,11 @@ export type Actividad = {
 	id: number;
 	nombre: string;
 	descripcion: string;
+	participantes: number;
 	estado: string | PropuestaEstado;
 	fechaEntrega?: Date | null;
 	comunidades: Comunidad[],
-	categorias?: Categoria[];
+	categorias: Categoria[] | [];
 };
 
 export type Propuesta = {
@@ -56,15 +53,17 @@ export type Propuesta = {
 	estado: string | PropuestaEstado;
 	fechaEntrega?: Date | null;
 	categorias?: Categoria[];
+} | {
+	createdAt: Date;
+	updatedAt: Date;
 };
 
 export type Like = {
 	id: number;
 	ideaId: number;
 	usuarioId?: number | null;
-	ipAddress: string;
-};
-export interface LikeColumns extends Like {
+	ipAddress?: string | null;
+} | {
 	createdAt: Date;
 };
 
@@ -72,8 +71,7 @@ export type Edicion = {
 	id: number;
 	ideaId: number;
 	contenido: string;
-};
-export interface EdicionColumns extends Edicion {
+} | {
 	createdAt: Date;
 	updatedAt: Date;
 };
@@ -82,10 +80,13 @@ export type Idea = {
 	id: number;
 	titulo: string;
 	descripcion: string;
-	likes: Like[];
+	likes?: Like[];
 	ediciones: Edicion[];
 	createdAt: Date;
 	// UI state properties
 	editing?: boolean;
 	showingHistory?: boolean;
+} | {
+	createdAt: Date;
+	updatedAt: Date;
 };

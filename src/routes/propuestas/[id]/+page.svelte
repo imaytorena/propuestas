@@ -112,13 +112,13 @@
           <p class="text-gray-600">{propuesta.descripcion}</p>
         </div>
 
-        <div class="mb-8">
-          <EvaluacionGrafico
+        <!-- <div class="mb-8"> -->
+          <!-- <EvaluacionGrafico
             evaluaciones={propuesta.evaluaciones}
             userVote={userVote}
             onVote={handleVote}
-          />
-        </div>
+          /> -->
+        <!-- </div> -->
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div class="bg-base-200 bg-opacity-50 rounded-lg p-4">

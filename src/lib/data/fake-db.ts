@@ -11,5 +11,5 @@ const generateArray = (count: number, dataType: object) => {
 }
 
 export const getPropuestas = (count: number) => generateArray(count, Propuesta);
-export const getActiviades = (count: number) => generateArray(count, Actividad);
+export const getActividades = (count: number) => generateArray(count, Actividad);
 export const getIdeas = (count: number) => generateArray(count, Idea);

@@ -1,7 +1,7 @@
 // import { faker } from '@faker-js/faker';
 // or, if desiring a different locale
 import { Faker, es_MX, simpleFaker } from '@faker-js/faker';
-import type { Like, UsuarioColumns, IdeaColumns, Edicion, LikeColumns } from '$lib/types';
+import type { Like, UsuarioColumns, Idea, Edicion, LikeColumns } from '$lib/types';
 
 export const usuarioFaker = ({ id }: { id: number }): UsuarioColumns => {
 	const { person, internet, date } = new Faker({ locale: [es_MX] });
@@ -25,14 +25,19 @@ export const usuarioFaker = ({ id }: { id: number }): UsuarioColumns => {
 	};
 };
 
-export const ideaFaker = ({ id }: { id: number }): IdeaColumns => {
+export const ideaFaker = ({ id }: { id: number }): Idea => {
 	const { lorem, date } = new Faker({ locale: [es_MX] });
 	return {
 		id: id,
 		titulo: lorem.sentence({ min: 3, max: 8 }),
 		descripcion: lorem.paragraphs(2),
 		createdAt: date.recent(),
-		updatedAt: date.recent()
+		updatedAt: date.recent(),
+		ediciones: [{
+			id: 1,
+			contenido: lorem.sentence({ min: 3, max: 8 }),
+			ideaId: id
+		}]
 	};
 };
 

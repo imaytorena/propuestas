@@ -4,10 +4,9 @@
 	// import EvaluacionGrafico from '$lib/components/EvaluacionGrafico.svelte';
 	// import EvaluacionBadge from '$lib/components/EvaluacionBadge.svelte';
 	import CategoriaBadge from '$lib/components/CategoriaBadge.svelte';
-	import type { Propuesta } from '$lib/types';
 
 	const { data } = $props();
-	let propuestas: Propuesta[] = $state(data.propuestas);
+	let { propuestas } = $state(data);
 	let error = '';
 
 	onMount(async () => {

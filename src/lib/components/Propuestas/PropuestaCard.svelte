@@ -4,8 +4,8 @@
 
 	let propuesta = {
 		id: '1',
-		nombre: 'Pero...¿qué puedo proponer?',
-		descripcion: 'En realidad, todo... este espacio para encontrar a ese grupo de loquitos que con quien compartir tus gustos',
+		nombre: 'Pero...¿como puedo contribuir?',
+		descripcion: 'En realidad, de cualquier manera... este espacio para encontrar a ese grupo de personas para participar en proyectos con impacto ambiental.',
 		estado: null,
 		fechaEntrega: '2024-03-01',
 		creador: {

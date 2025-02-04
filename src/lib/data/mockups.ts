@@ -1,6 +1,7 @@
 export const Actividad = {
 		id: 1,
 		nombre: 'Plantar arboles',
+		participantes: 20,
 		descripcion: "Plantar árboles es una forma de contribuir al cuidado del medio ambiente y a la conservación de la vida. Los árboles producen oxígeno, purifican el aire y ayudan a combatir el cambio climático.",
 		estado: 'Activa',
 		fechaEntrega: '2024-03-01',

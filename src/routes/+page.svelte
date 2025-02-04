@@ -5,11 +5,11 @@
 	import PropuestaCard from '$lib/components/Propuestas/PropuestaCard.svelte';
 	import Map from '$lib/components/Map.svelte';
 	import ActividadCard from '$lib/components/Actividades/ActividadCard.svelte';
+	import type { PageData } from './$types.js';
 
 	const { data } = $props();
+	let { ideas, actividades, propuestas }: PageData = $state(data);
 	let loadedMap = $state(false);
-	let { ideas, actividades, propuestas }: { ideas: Idea[]; actividades: Actividad[] } =
-		$state(data);
 	let selectedColonia = $state(null);
 	let selectedOption = $state('Ideas');
 
@@ -41,20 +41,36 @@
 	});
 </script>
 
-<div class="container mx-auto max-w-5xl px-4 py-8">
+<div class="container mx-auto px-4 py-8">
 	<section class="mb-12">
-		<h2 class="font-delius mb-4 text-xl font-bold text-green-700">
-			Problematicas por colonia en la Zona Metropolitana de Guadalajara
+		<h2 class="font-delius mb-4 text-center text-xl font-bold text-green-700">
+			Da click en alguna colonia para conocer sus areas de oportunidad
 		</h2>
-		{#if loadedMap}
-			<Map onColoniaClick={handleColoniaClick} />
-		{/if}
-		{#if selectedColonia}
-			<div class="mt-4 rounded-lg border-2 border-green-100 bg-green-50 p-4">
-				<h3 class="text-xl font-semibold text-green-800">Colonia: {selectedColonia.nombre}</h3>
-				<p class="text-green-700/80">Municipio: {selectedColonia.municipio}</p>
-			</div>
-		{/if}
+		<div class="flex justify-center gap-4">
+			{#if loadedMap}
+				<Map onColoniaClick={handleColoniaClick} />
+			{/if}
+			{#if selectedColonia}
+				<div class="h-max w-[20rem]">
+					<div class="mt-4 h-max w-full rounded-lg border-2 border-green-100 bg-green-50 p-4">
+						<h3 class="text-xl font-semibold text-green-800">Colonia: {selectedColonia.nombre}</h3>
+						<p class="text-green-700/80">Municipio: {selectedColonia.municipio}</p>
+					</div>
+					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+						<p class="text-green-700/80">Ideas: 8</p>
+					</div>
+					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+						<p class="text-green-700/80">Propuestas: 10</p>
+					</div>
+					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+						<p class="text-green-700/80">Actividades: 2</p>
+					</div>
+					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+						<p class="text-green-700/80">Comunidades: 39</p>
+					</div>
+				</div>
+			{/if}
+		</div>
 	</section>
 	<section>
 		<div class="flex w-full flex-wrap items-center justify-center gap-5">
@@ -71,15 +87,13 @@
 		{#if selectedOption === 'Ideas'}
 			<div class="relative m-12">
 				<IdeasCrear {ideas} />
-				<div class="hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-6">
+				<div class="grid grid-cols-2 gap-4">
 					<!-- Ideas[] -->
 					{#each ideas as idea}
-						<div class="w-[300px] shrink-0 snap-start">
-							<IdeaCard {idea} />
-						</div>
+						<IdeaCard {idea} />
 					{/each}
 					<!-- "Ver más" card -->
-					<div class="w-[300px] shrink-0 snap-start">
+					<div>
 						<a
 							href="/ideas"
 							class="card h-full border-2 border-solid border-base-100 bg-base-100 shadow-xl transition-shadow hover:border-2 hover:border-green-700"
@@ -107,9 +121,13 @@
 				</div>
 			</div>
 		{/if}
-		<!-- {#if selectedOption === 'Actividades'}
-			<ActividadCard {...actividad} />
-		{/if} -->
+		{#if selectedOption === 'Actividades'}
+			<div class="flex flex-wrap justify-center gap-4">
+				{#each actividades as actividad}
+					<ActividadCard {...actividad} />
+				{/each}
+			</div>
+		{/if}
 	</section>
 
 	<section class="mt-20">
@@ -184,14 +202,3 @@
 		</div>
 	</section>
 </div>
-
-<style>
-	.hide-scrollbar {
-		-ms-overflow-style: none;
-		scrollbar-width: none;
-	}
-
-	.hide-scrollbar::-webkit-scrollbar {
-		display: none;
-	}
-</style>

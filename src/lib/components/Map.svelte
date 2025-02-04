@@ -91,8 +91,7 @@
   #map {
     height: 500px;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 64rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px -3px rgba(47, 133, 90, 0.1);
     border: 5px solid #37AA56;

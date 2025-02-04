@@ -2,8 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import url('https://fonts.googleapis.com/css2?family=Delius&family=Delius+Unicase&family=Poiret+One&family=Scope+One&family=Shadows+Into+Light&display=swap');
-
 @layer base {
   body {
     @apply bg-green-50;
@@ -21,7 +19,7 @@
   .text-primary {
     @apply text-green-700;
   }
-  
+
   .bg-primary {
     @apply bg-green-600;
   }
@@ -40,7 +38,43 @@
 }
 
 body .qci-layout-bg {
-    background-image: radial-gradient(green 1.5px, transparent 0) !important;
-    background-size: 90px 90px !important;
-    background-position: -20px -20px !important;
+  background-image: radial-gradient(green 1.5px, transparent 0) !important;
+  background-size: 90px 90px !important;
+  background-position: -20px -20px !important;
+}
+
+@font-face {
+  font-family: 'Delius';
+  font-style: normal;
+  src: url('/fonts/Delius-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Delius Unicase';
+  font-style: normal;
+  src: url('/fonts/DeliusUnicase/Delius_Unicase-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Delius Unicase';
+  font-style: bold;
+  src: url('/fonts/DeliusUnicase/Delius_Unicase-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poiret One';
+  font-style: normal;
+  src: url('/fonts/PoiretOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Scope One';
+  font-style: normal;
+  src: url('/fonts/ScopeOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Shadows Into Light';
+  font-style: normal;
+  src: url('/fonts/ShadowsIntoLight-Regular.ttf') format('truetype');
 }

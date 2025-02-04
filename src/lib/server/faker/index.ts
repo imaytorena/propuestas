@@ -62,7 +62,7 @@ export const bulkLikesWithFaker = async ({ rows, ideaId }: { rows: number | unde
 	});
 
 	while (entries.length < (rows ?? 1)) {
-		const userIndex = entries.length % (users.length + 1); // +1 to include anonymous likes
+		const userIndex : number = entries.length % (users.length + 1); // +1 to include anonymous likes
 		entries.push(
 			likeFaker({
 				id,

@@ -1,5 +1,6 @@
 <script lang="ts">
   import * as m from '$lib/paraglide/messages';
+	import type { Idea } from '$lib/types';
 
   type EditLog = {
     fecha: string;
@@ -8,32 +9,21 @@
     textoNuevo: string;
   };
 
-  type Idea = {
-    id: string;
-    texto: string;
-    autor: string;
-    fecha: string;
-    likes: number;
-    editing?: boolean;
-    showingHistory?: boolean;
-    editHistory: EditLog[];
-  };
-
   let ideas: Idea[] = [
     {
-      id: '1',
-      texto: 'Crear un programa de mentorías entre estudiantes de diferentes semestres',
-      autor: 'María García',
-      fecha: '2025-01-10',
-      likes: 15,
-      editHistory: [
-        {
-          fecha: '2025-01-09',
-          usuario: 'María García',
-          textoAnterior: 'Crear un programa de mentorías',
-          textoNuevo: 'Crear un programa de mentorías entre estudiantes de diferentes semestres'
-        }
-      ]
+      id: 1,
+      titulo: 'Idea ejemplo (mockup)',
+	    descripcion: 'Mockup ejemplo',
+      likes: [
+        {id: 1, ideaId: 1, usuarioId: null, ipAddress: '10.10.10.20'},
+        {id: 2, ideaId: 1, usuarioId: 1, ipAddress: null},
+        {id: 3, ideaId: 1, usuarioId: 1, ipAddress: null}
+      ],
+      ediciones: [
+        {id: 1, ideaId: 1, contenido: 'Idea ejemplo (mockup)'},
+        {id: 2, ideaId: 1, contenido: 'Idea ejemplo'},
+        {id: 3, ideaId: 1, contenido: 'Idea'},
+      ],
     },
     {
       id: '2',
