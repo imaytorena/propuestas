@@ -13,11 +13,11 @@ export const load: PageServerLoad = async ({ cookies, setHeaders }) => {
 		// 	return { ideas: [], session: null };
 		// }
 		const {session} = await validateSessionToken(sessionToken ?? '');
-		console.log({MOCKUP_DATA})
-		const ideas = !MOCKUP_DATA ? await db.idea.findMany() : getIdeas(3);
-		console.log(ideas);
+		
+		const ideas = MOCKUP_DATA === 'true' ? await db.idea.findMany() : getIdeas(3);
+		// console.log(ideas);
 		const actividades =  getActividades(4);
-		const propuestas = !MOCKUP_DATA ? await db.propuesta.findMany() : getPropuestas(3);
+		const propuestas = MOCKUP_DATA === 'true' ? await db.propuesta.findMany() : getPropuestas(3);
 		return {
 			ideas,
 			actividades,
