@@ -1,6 +1,6 @@
-import prisma from '$lib/server/db';
+import prisma from '$lib/db';
 import { json } from '@sveltejs/kit';
-import { db } from '$lib/server/db';
+import { db } from '$lib/db';
 
 export const POST = async ({ url, request }) => {
 	const id = Number(url.searchParams.get('id'));

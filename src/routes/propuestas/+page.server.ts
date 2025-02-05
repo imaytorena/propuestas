@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { db } from '$lib/server/db';
+import { db } from '$lib/db';
 
 export const load: PageServerLoad = async () => {
 	const propuestas = await db.propuesta.findMany({

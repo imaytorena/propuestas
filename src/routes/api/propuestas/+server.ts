@@ -1,6 +1,6 @@
-import { db } from '$lib/server/db';
+import { db } from '$lib/db';
 import { json } from '@sveltejs/kit';
-import * as auth from '$lib/server/auth';
+import * as auth from '$lib/auth';
 import type { Propuesta } from '$lib/types';
 
 export const POST = async ({ request }) => {

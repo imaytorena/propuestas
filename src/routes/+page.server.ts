@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
-import { db } from '$lib/server/db';
-import { validateSessionToken } from '$lib/server/auth';
+import { db } from '$lib/db';
+import { validateSessionToken } from '$lib/auth';
 import { getIdeas, getActividades, getPropuestas } from '$lib/data/fake-db';
 
 export const load: PageServerLoad = async ({ cookies, setHeaders }) => {

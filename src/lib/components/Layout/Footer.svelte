@@ -3,13 +3,13 @@
 	const currentYear = new Date().getFullYear();
 </script>
 
-<footer class="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white py-12 mt-8">
+<footer class="text-black border-t border-gray-700 py-12 mt-8">
 	<div class="container mx-auto px-4">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			<!-- Logo y descripción -->
 			<div class="space-y-4">
 				<h3 class="text-xl font-bold">ColectividApp</h3>
-				<p class="text-neutral-300 text-sm">
+				<p class="text-gray-600 text-sm">
 					Plataforma digital para conectar a estudiantes interesados en resolver problemas sociales concretos que
 					afectan tanto a su entorno académico como a sus comunidades locales.
 				</p>
@@ -18,11 +18,11 @@
 			<!-- Enlaces rápidos -->
 			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Enlaces Rápidos</h4>
-				<ul class="space-y-2">
-					<li><a href="/" class="text-neutral-300 hover:text-white transition-colors">Inicio</a></li>
-					<li><a href="/actividades" class="text-neutral-300 hover:text-white transition-colors">Actividades</a></li>
-					<li><a href="/propuestas" class="text-neutral-300 hover:text-white transition-colors">Propuestas</a></li>
-					<li><a href="/comunidades" class="text-neutral-300 hover:text-white transition-colors">Comunidades</a></li>
+				<ul class="space-y-2 text-gray-600">
+					<li><a href="/" class="hover:underline transition-colors">Inicio</a></li>
+					<li><a href="/actividades" class="hover:underline transition-colors">Actividades</a></li>
+					<li><a href="/propuestas" class="hover:underline transition-colors">Propuestas</a></li>
+					<li><a href="/comunidades" class="hover:underline transition-colors">Comunidades</a></li>
 				</ul>
 			</div>
 
@@ -30,7 +30,7 @@
 			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Síguenos</h4>
 				<div class="flex space-x-4">
-					<a href="https://api.whatsapp.com/send?phone=5233333333333&text=Holi" class="text-neutral-300 hover:text-white transition-colors">
+					<a href="https://api.whatsapp.com/send?phone=5233333333333&text=Holi" class="text-gray-600 hover:underline transition-colors">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 							<path fill="currentColor"
 										d="M8.886 7.17c.183.005.386.015.579.443c.128.285.343.81.519 1.238c.137.333.249.607.277.663c.064.128.104.275.02.448l-.028.058a1.4 1.4 0 0 1-.23.37l-.143.17c-.085.104-.17.206-.242.278c-.129.128-.262.266-.114.522s.668 1.098 1.435 1.777a6.6 6.6 0 0 0 1.903 1.2q.105.045.17.076c.257.128.41.108.558-.064c.149-.173.643-.749.817-1.005c.168-.256.34-.216.578-.128c.238.089 1.504.71 1.761.837l.143.07c.179.085.3.144.352.23c.064.109.064.62-.148 1.222c-.218.6-1.267 1.176-1.742 1.22l-.135.016c-.436.052-.988.12-2.956-.655c-2.426-.954-4.027-3.32-4.35-3.799l-.053-.076l-.006-.008c-.147-.197-1.048-1.402-1.048-2.646c0-1.19.587-1.81.854-2.092l.047-.05a.95.95 0 0 1 .687-.32c.173 0 .347 0 .495.005" />
@@ -39,7 +39,7 @@
 										clip-rule="evenodd" />
 						</svg>
 					</a>
-					<a href="#" class="text-neutral-300 hover:text-white transition-colors">
+					<a href="#" class="text-gray-600 hover:underline transition-colors">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 							<path fill="currentColor" d="M16 7a1 1 0 1 1 2 0a1 1 0 0 1-2 0" />
 							<path fill="currentColor" fill-rule="evenodd"
@@ -55,10 +55,10 @@
 		</div>
 
 		<!-- Línea divisoria -->
-		<div class="border-t border-neutral-700 my-8"></div>
+		<div class="border-t border-gray-600 my-8"></div>
 
 		<!-- Copyright -->
-		<div class="text-center text-neutral-400 text-sm">
+		<div class="text-center text-gray-400 text-sm">
 			<p>&copy; {new Date().getFullYear()} ColectividApp. Todos los derechos reservados.</p>
 		</div>
 	</div>

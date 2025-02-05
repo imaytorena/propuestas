@@ -7,18 +7,18 @@
 	import Navbar from '$lib/components/Layout/Navbar.svelte';
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 
-	const {children, data }:PageProps = $props();
+	const { children, data }: PageProps = $props();
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="qci-layout-bg min-h-screen flex flex-col bg-base-200">
+	<div class="qci-layout-bg max-w-6xl mx-auto flex min-h-screen flex-col">
 		<div class="drawer">
 			<input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
 			<div class="drawer-content flex flex-col">
 				<div class="w-full">
 					<Navbar />
 				</div>
-				<main class="flex-grow container mx-auto px-4 py-8 font-mono w-full">
+				<main class="container mx-auto w-full flex-grow px-4 py-8 font-mono">
 					{@render children()}
 				</main>
 				<Footer />

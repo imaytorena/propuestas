@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    @apply bg-green-50;
     font-family: 'Delius', cursive;
+    background-color: #F7F6F0;
   }
 }
 
@@ -38,7 +38,7 @@
 }
 
 body .qci-layout-bg {
-  background-image: radial-gradient(green 1.5px, transparent 0) !important;
+  /* background-image: radial-gradient(green 1.5px, transparent 0) !important; */
   background-size: 90px 90px !important;
   background-position: -20px -20px !important;
 }

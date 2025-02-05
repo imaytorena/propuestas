@@ -1,5 +1,5 @@
 import { usuarioFaker, ideaFaker, likeFaker } from '$lib/server/faker/models';
-import prisma from '../db';
+import prisma from '../../db';
 
 export const bulkUsuariosWithFaker = async ({ rows }: { rows: number | undefined }) => {
 	let entries = [],

@@ -196,7 +196,7 @@
 
 						<div class="space-x-3">
 							<button
-								class="btn btn-neutral text-white rounded-md  transition-colors"
+								class="btn btn-primary text-white rounded-md  transition-colors"
 							>
 								Enviar mi opinión
 							</button>

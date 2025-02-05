@@ -1,7 +1,7 @@
 import type { Cookies } from '@sveltejs/kit';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeBase64url, encodeHexLowerCase } from '@oslojs/encoding';
-import prisma from '$lib/server/db';
+import prisma from '$lib/db';
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 

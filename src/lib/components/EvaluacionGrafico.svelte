@@ -15,11 +15,11 @@
 	};
 
 	const getBarClass = (tipo: 'buena' | 'regular' | 'no_tan_buena', isSelected: boolean) => {
-		const baseClasses = 'h-8 transition-all duration-200 flex items-center justify-center text-white cursor-pointer hover:opacity-90';
+		const baseClasses = 'h-8 transition-all duration-200 flex items-center justify-center cursor-pointer hover:opacity-90';
 		const colorClasses = {
-			buena: 'bg-green-500',
-			regular: 'bg-yellow-500',
-			no_tan_buena: 'bg-red-500'
+			buena: 'bg-[#74946C] text-white ',
+			regular: 'bg-[#FFD075] text-black',
+			no_tan_buena: 'bg-[#D33C5B] text-white'
 		};
 		return `${baseClasses} ${colorClasses[tipo]} ${isSelected ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`;
 	};
@@ -95,8 +95,8 @@
 
 		<div class="flex justify-between text-sm text-gray-600">
 			<button
-				class="flex items-center gap-1 hover:text-green-600 transition-colors"
-				class:text-green-600={userVote === 'buena'}
+				class="flex items-center gap-1 hover:text-[#688561] transition-colors"
+				class:text-[#688561]={userVote === 'buena'}
 				on:click={() => onVote('buena')}
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -106,8 +106,8 @@
 				Muy Buena
 			</button>
 			<button
-				class="flex items-center gap-1 hover:text-yellow-600 transition-colors"
-				class:text-yellow-600={userVote === 'regular'}
+				class="flex items-center gap-1 hover:text-[#B79554] transition-colors"
+				class:text-[#B79554]={userVote === 'regular'}
 				on:click={() => onVote('regular')}
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -117,8 +117,8 @@
 				Regular
 			</button>
 			<button
-				class="flex items-center gap-1 hover:text-red-600 transition-colors"
-				class:text-red-600={userVote === 'no_tan_buena'}
+				class="flex items-center gap-1 hover:text-[#D33C5B] transition-colors"
+				class:text-[#D33C5B]={userVote === 'no_tan_buena'}
 				on:click={() => onVote('no_tan_buena')}
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

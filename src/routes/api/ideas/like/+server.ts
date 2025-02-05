@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
-import { db } from '$lib/server/db';
-import * as auth from '$lib/server/auth';
+import { db } from '$lib/db';
+import * as auth from '$lib/auth';
 
 export async function GET({ url, getClientAddress }) {
 	// Es necesario que conozcamos al usuario (generamos una session de una vez)

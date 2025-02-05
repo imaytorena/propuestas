@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import prisma from '$lib/server/db';
-import { generateSessionToken, sessionCookieName, setSessionTokenCookie } from '$lib/server/auth';
+import prisma from '$lib/db';
+import { generateSessionToken, sessionCookieName, setSessionTokenCookie } from '$lib/auth';
 
 export const actions = {
 	default: async ({ request, cookies, getClientAddress }) => {

@@ -50,14 +50,6 @@
   }];
   let error = '';
   let showCreateModal = false;
-
-  onMount(async () => {
-    // try {
-    //   comunidades = await get('/api/comunidades');
-    // } catch (e) {
-    //   error = 'Error al cargar comunidades';
-    // }
-  });
 </script>
 
 <div class="container mx-auto px-4 py-8">
@@ -66,26 +58,6 @@
       <h1 class="text-3xl font-bold text-gray-900">Comunidades</h1>
       <p class="mt-2 text-gray-600">Descubre comunidades basadas en intereses compartidos</p>
     </div>
-    <button
-      class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-500 transition-colors flex items-center gap-2"
-      on:click={() => showCreateModal = true}
-    >
-      <svg
-        class="w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-        />
-      </svg>
-      Nueva Comunidad
-    </button>
   </div>
 
   {#if error}
@@ -96,7 +68,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {#each comunidades as comunidad (comunidad.id)}
-      <div class="bg-gray-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+      <div class="bg-base-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
         <div class="h-48 overflow-hidden">
           <img
             src={comunidad.imagen}
@@ -107,13 +79,10 @@
         <div class="p-6">
           <div class="flex justify-between items-start mb-2">
             <h2 class="text-xl font-semibold">
-              <a href="/comunidades/{comunidad.id}" class="text-gray-900 hover:text-indigo-600">
+              <a href="/comunidades/{comunidad.id}" class="text-gray-900 hover:text-primary">
                 {comunidad.nombre}
               </a>
             </h2>
-            <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs font-medium rounded-full">
-              {comunidad.categoria}
-            </span>
           </div>
           <p class="text-gray-600 mb-4 line-clamp-2">
             {comunidad.descripcion}
@@ -164,75 +133,3 @@
     {/each}
   </div>
 </div>
-
-{#if showCreateModal}
-  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-base-100 rounded-lg max-w-md w-full p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Crear Nueva Comunidad</h2>
-        <button
-          class="text-gray-400 hover:text-gray-500"
-          on:click={() => showCreateModal = false}
-        >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
-      <form class="space-y-4">
-        <div>
-          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-          <input
-            type="text"
-            id="nombre"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="Nombre de la comunidad"
-          />
-        </div>
-        <div>
-          <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-          <textarea
-            id="descripcion"
-            rows="3"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="Describe el propósito de la comunidad"
-          ></textarea>
-        </div>
-        <div>
-          <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
-          <input
-            type="file"
-            id="imagen"
-            accept="image/*"
-            class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-          />
-        </div>
-        <div class="flex justify-end gap-3 pt-4">
-          <button
-            type="button"
-            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-            on:click={() => showCreateModal = false}
-          >
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500"
-          >
-            Crear Comunidad
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-{/if}

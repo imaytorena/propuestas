@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { db } from '$lib/server/db';
+import { db } from '$lib/db';
 
 export async function POST({ params, request, cookies }) {
 	const { contenido } = await request.json();

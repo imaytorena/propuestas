@@ -16,7 +16,7 @@
 </script>
 <div class="card bg-base-100 shadow-xl w-full mx-auto mb-12">
 	<div class="card-body">
-		<h2 class="card-title text-primary mb-4">Tienes alguna idea que mejorará nuestra comunidad?</h2>
+		<h2 class="card-title text-primary mb-4">Tienes alguna idea que mejoraría nuestra calidad ambiental?</h2>
 		<textarea
 			class="textarea textarea-bordered w-full h-32 mb-4"
 			placeholder="Escribe tu idea aquí..."
@@ -24,7 +24,7 @@
 		></textarea>
 		<div class="card-actions justify-end">
 			<button
-				class="btn btn-primary"
+				class="btn btn-primary text-white disabled:bg-primary/10"
 				{onclick}
 				disabled={!newIdeaText.trim()}
 			>

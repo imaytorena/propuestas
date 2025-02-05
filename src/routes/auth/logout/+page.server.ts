@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
-import { db } from '$lib/server/db';
-import { deleteSessionTokenCookie } from '$lib/server/auth';
+import { db } from '$lib/db';
+import { deleteSessionTokenCookie } from '$lib/auth';
 
 export const load: PageServerLoad = async ({cookies, setHeaders}) => {
 	const sessionToken = cookies.get('auth-session');
