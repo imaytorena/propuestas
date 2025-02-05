@@ -6,6 +6,7 @@
   
   let mapElement: string | HTMLElement;
   export let onColoniaClick = (colonia: any) => {console.log(colonia)};
+  let selectedLayer: any = null;
 
   function getStyle(feature: any) {
     return {
@@ -30,7 +31,9 @@
   }
 
   function resetHighlight(e: LeafletMouseEvent, geoJson: GeoJSON<any, Geometry>) {
-    geoJson.resetStyle(e.target);
+    if (e.target !== selectedLayer) {
+      geoJson.resetStyle(e.target);
+    }
   }
 
   onMount(() => {
@@ -60,6 +63,11 @@
           mouseover: highlightFeature,
           mouseout: (e) => resetHighlight(e, geoJson),
           click: (e) => {
+            if (selectedLayer) {
+              geoJson.resetStyle(selectedLayer);
+            }
+            selectedLayer = e.target;
+            highlightFeature(e);
             map.fitBounds(e.target.getBounds());
             onColoniaClick(feature.properties);
           }

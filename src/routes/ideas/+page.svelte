@@ -14,12 +14,12 @@
 	}
 </script>
 
-<div class="container mt-4">
+<div class="container mt-4 mx-auto p-4">
 	<IdeasCrear {ideas} />
-</div>
-
-<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-	{#each ideas as idea}
+	<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		{#each ideas as idea}
 		<IdeaCard {idea} />
-	{/each}
+		{/each}
+	</div>
 </div>
+	
