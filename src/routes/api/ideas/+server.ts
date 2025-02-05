@@ -3,26 +3,31 @@ import { json } from '@sveltejs/kit';
 import * as auth from '$lib/server/auth';
 
 export const POST = async ({ params, request, cookies }) => {
-	const { texto } = await request.json();
-
-	const idea = await db.idea.create({
-		data: {
-			titulo: '',  
-			descripcion: '',
-			ediciones: {
-				create: {
-					contenido: String(texto)
+	const { contenido } = await request.json();
+	console.log({contenido});
+	try {
+		const idea = await db.idea.create({
+			data: {
+				contenido: String(contenido),
+				ediciones: {
+					create: {
+						contenido: String(contenido)
+					}
 				}
+			},
+			include: {
+				ediciones: true
 			}
-		},
-		include: {
-			ediciones: true
-		}
-	});
-
-	return json({ 
-		id: idea.id, 
-		texto: idea.ediciones[0].contenido, 
-		likes: idea.likes || 0 
-	}, { status: 201 });
+		});
+	
+		console.log({idea});
+		return json({ 
+			idea
+		}, { status: 201 });
+	} catch (error) {
+		console.error(error);
+		return json({ 
+			error: "Hubo un error"
+		}, { status: 400 });
+	}
 };

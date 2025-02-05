@@ -3,6 +3,7 @@ import { db } from '$lib/server/db';
 
 export const load: PageServerLoad = async ({ params, cookies }: any) => {
 	const ideas = await db.idea.findMany({
+		take: 10,
 		include: {
 			likes: true,
 			ediciones: {

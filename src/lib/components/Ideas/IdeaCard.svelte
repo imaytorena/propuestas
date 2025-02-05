@@ -13,11 +13,11 @@
 	};
 
 	const saveEdit = async () => {
-		const { id, titulo } = idea;
+		const { id, contenido } = idea;
 		try {
 			await fetch(`/api/ideas/${id}/editar`, {
 				method: 'POST',
-				body: JSON.stringify({ titulo })
+				body: JSON.stringify({ contenido })
 			});
 			editing = false;
 		} catch (e) {
@@ -45,7 +45,7 @@
 <div class="card h-full bg-base-100 shadow-xl">
 	<div class="card-body">
 		{#if editing}
-			<textarea class="textarea textarea-bordered mb-4 h-32 w-full" bind:value={idea.titulo}
+			<textarea class="textarea textarea-bordered mb-4 h-32 w-full" bind:value={idea.contenido}
 			></textarea>
 			<div class="card-actions justify-end">
 				<button
@@ -66,10 +66,10 @@
 				<div class="space-y-3">
 					<div class="rounded-lg bg-base-200/70 p-3 text-sm">
 						<div class="space-y-1">
-							<p class="font-bold text-base-content">{idea.titulo}</p>
+							<p class="font-bold text-base-content">{idea.contenido}</p>
 						</div>
 					</div>
-					{#each idea.ediciones as log, index}
+					{#each idea?.ediciones as log, index}
 						{#if index !== 0}
 							<div class="rounded-lg bg-base-200/50 p-3 text-sm">
 								<div class="space-y-1">
@@ -86,7 +86,7 @@
 				</button>
 			</div>
 		{:else}
-			<p class="mb-4 text-center text-lg">{idea.titulo}</p>
+			<p class="mb-4 text-center text-lg">{idea.contenido}</p>
 			<div class="flex items-center justify-between text-sm text-base-content/70"></div>
 			<!-- ACTIONS -->
 			<div class="card-actions mt-4 items-center justify-center xl:justify-between">
@@ -113,7 +113,7 @@
 								/>
 							</svg>
 						{/if}
-						{idea.likes.length ?? '0'}
+						{idea.likes?.length ?? '0'}
 					</button>
 					<div class="flex items-center gap-1">
 						<!-- svelte-ignore a11y_consider_explicit_label -->

@@ -1,13 +1,12 @@
 // This is your Prisma schema file
 generator client {
   provider = "prisma-client-js"
-  engineType = "dataproxy" // Necesario para entornos sin acceso directo al sistema de archivos
+  engineType = "library"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Carrera {
@@ -211,8 +210,7 @@ model ComunidadCategorias {
 model Idea {
   id          Int       @id @default(autoincrement())
   likes       Like[]
-  titulo      String    @db.VarChar(255)
-  descripcion String    @db.Text
+  contenido      String    @db.VarChar(255)
   createdAt   DateTime  @default(now()) @map("created_at")
   ediciones   Edicion[]
 

@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 
 export async function POST({ params, request, cookies }) {
-	const { titulo } = await request.json();
+	const { contenido } = await request.json();
 
 	const idea = await db.idea.findUnique({
 		where: {
@@ -13,8 +13,8 @@ export async function POST({ params, request, cookies }) {
 		return json({ error: 'Idea no encontrada' }, { status: 404 });
 	}
 
-	if (idea.titulo === titulo) {
-		return json({ error: 'El título no puede ser igual al actual' }, { status: 400 });
+	if (idea.contenido === contenido) {
+		return json({ error: 'El contenido no puede ser igual al actual' }, { status: 400 });
 	}
 
 	await db.idea.update({
@@ -22,14 +22,14 @@ export async function POST({ params, request, cookies }) {
 			id: parseInt(params.id)
 		},
 		data: {
-			titulo: String(titulo)
+			contenido: String(contenido)
 		}
 	});
 
 	const newEdicion = await db.edicion.create({
 		data: {
 			ideaId: parseInt(params.id),
-			contenido: String(titulo)
+			contenido: String(contenido)
 		}
 	});
 

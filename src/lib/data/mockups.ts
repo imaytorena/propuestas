@@ -49,8 +49,7 @@ export const Propuesta = {
 
 export const Idea = {
 	id: 1,
-	titulo: 'Idea ejemplo (mockup)',
-	descripcion: 'Mockup ejemplo',
+	contenido: 'Idea ejemplo (mockup)',
 	likes: [
 		{id: 1, ideaId: 1, usuarioId: null, ipAddress: '10.10.10.20'},
 		{id: 2, ideaId: 1, usuarioId: 1, ipAddress: null},

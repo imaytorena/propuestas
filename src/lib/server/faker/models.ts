@@ -29,8 +29,7 @@ export const ideaFaker = ({ id }: { id: number }): Idea => {
 	const { lorem, date } = new Faker({ locale: [es_MX] });
 	return {
 		id: id,
-		titulo: lorem.sentence({ min: 3, max: 8 }),
-		descripcion: lorem.paragraphs(2),
+		contenido: lorem.sentence({ min: 3, max: 8 }),
 		createdAt: date.recent(),
 		updatedAt: date.recent(),
 		ediciones: [{

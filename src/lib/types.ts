@@ -78,8 +78,7 @@ export type Edicion = {
 
 export type Idea = {
 	id: number;
-	titulo: string;
-	descripcion: string;
+	contenido: string;
 	likes?: Like[];
 	ediciones: Edicion[];
 	createdAt: Date;

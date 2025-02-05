@@ -1,6 +1,4 @@
-// import { PrismaClient } from '@prisma/client'
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
+import { PrismaClient } from '@prisma/client'
 import { env } from '$env/dynamic/private';
 
 const databaseUrl = env.DATABASE_URL;
@@ -12,7 +10,5 @@ const prisma = new PrismaClient({
 		}
 	}
 });
-// TODO: Only production	
-// .$extends(withAccelerate());
 
 export default prisma;

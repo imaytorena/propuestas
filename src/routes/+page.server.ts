@@ -4,20 +4,22 @@ import { validateSessionToken } from '$lib/server/auth';
 import { getIdeas, getActividades, getPropuestas } from '$lib/data/fake-db';
 
 export const load: PageServerLoad = async ({ cookies, setHeaders }) => {
-	console.log("hello")
 	try {
 		const sessionToken = cookies.get('auth-session');
-		console.log("hello")
-		// if (!sessionToken) {
-		// 	return { ideas: [], session: null };
-		// }
 		const {session} = await validateSessionToken(sessionToken ?? '');
 		
-		const ideas = await db.idea.findMany();
-		// console.log(ideas);
-		// TODO: get from DB
-		const actividades =  getActividades(4);
+		const ideas = await db.idea.findMany({
+			take: 3,
+			include: {
+				ediciones: {
+					take: 3,  // Obtiene solo los últimos 3 registros
+					orderBy: { createdAt: 'desc' }  // Ordena por fecha de creación descendente
+				}
+			}
+		});
+		const actividades =  getActividades(1);
 		const propuestas = await db.propuesta.findMany();
+		// console.log({ ideas, actividades, propuestas });
 		return {
 			ideas,
 			actividades,
