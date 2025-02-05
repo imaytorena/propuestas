@@ -44,7 +44,6 @@ export async function validateSessionToken(token: string) {
 			}
 		}
 	});
-	console.log({result});
 
 	if (!result || !result.usuario) {
 		return { session: null, usuario: null };

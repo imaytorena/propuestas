@@ -37,7 +37,7 @@
 			</h2>
 			<p class="mt-2 text-center text-sm text-gray-600">
 				¿No tienes una cuenta?
-				<a href="/auth/register" class="font-medium text-primary hover:text-primary/90">
+				<a href="/auth/registrar" class="font-medium text-primary hover:text-primary/90">
 					Regístrate aquí
 				</a>
 			</p>

@@ -35,8 +35,8 @@ model Usuario {
   habilidades     UsuariosHabilidades[]
   sessions        Session[]
   propuestas      Propuesta[]
+  actividades     Actividad[]
   evaluaciones    Evaluacion[]
-  solicitudes     Solicitud[]
   mensajesEnviados Mensaje[] @relation("MensajesEnviados")
   mensajesRecibidos Mensaje[] @relation("MensajesRecibidos")
   representante    Representante[]
@@ -79,6 +79,7 @@ model Categoria {
   id        Int       @id @default(autoincrement())
   nombre    String    @db.VarChar(255)
   propuestas PropuestaCategorias[]
+  actividades ActividadCategorias[]
   comunidades ComunidadCategorias[]
 
   @@map("categorias")
@@ -95,10 +96,20 @@ model Propuesta {
   
   creador       Usuario?  @relation(fields: [creadorId], references: [id])
   categorias    PropuestaCategorias[]
-  evaluaciones  Evaluacion[]
-  solicitudes   Solicitud[]
+  evaluaciones  PropuestaEvaluaciones[]
 
   @@map("propuestas")
+}
+
+model PropuestaEvaluaciones {
+  id          Int       @id @default(autoincrement())
+  propuestaId Int       @map("propuesta_id")
+  evaluacionId Int       @map("evaluacion_id")
+
+  propuesta   Propuesta @relation(fields: [propuestaId], references: [id])
+  evaluacion  Evaluacion @relation(fields: [evaluacionId], references: [id])
+
+  @@map("propuesta_evaluaciones")
 }
 
 model PropuestaCategorias {
@@ -112,31 +123,57 @@ model PropuestaCategorias {
   @@map("propuesta_categorias")
 }
 
-model Evaluacion {
-  id          Int       @id @default(autoincrement())
-  propuestaId Int       @map("propuesta_id")
-  evaluadorId Int       @map("evaluador_id")
-  calificacion Int
-  comentario   String?  @db.Text
-  createdAt    DateTime @default(now()) @map("created_at")
+model Actividad {
+  id            Int       @id @default(autoincrement())
+  nombre        String    @db.VarChar(255)
+  descripcion   String    @db.Text
+  fechaEntrega  DateTime? @map("fecha_entrega")
+  creadorId     Int?      @map("creador_id")
+  estado        String    @default("Iniciando") @db.VarChar(50)
+  createdAt     DateTime  @default(now()) @map("created_at")
   
-  propuesta    Propuesta @relation(fields: [propuestaId], references: [id])
-  evaluador    Usuario   @relation(fields: [evaluadorId], references: [id])
+  creador       Usuario?  @relation(fields: [creadorId], references: [id])
+  categorias    ActividadCategorias[]
+  evaluaciones  ActividadEvaluaciones[]
 
-  @@map("evaluaciones")
+  @@map("actividades")
 }
 
-model Solicitud {
+model ActividadCategorias {
   id          Int       @id @default(autoincrement())
-  propuestaId Int       @map("propuesta_id")
-  usuarioId   Int       @map("usuario_id")
-  estado      String    @default("pendiente") @db.VarChar(50)
-  createdAt   DateTime  @default(now()) @map("created_at")
+  actividadId Int       @map("actividad_id")
+  categoriaId Int       @map("categoria_id")
   
-  propuesta   Propuesta @relation(fields: [propuestaId], references: [id])
-  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
+  actividad   Actividad @relation(fields: [actividadId], references: [id])
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
 
-  @@map("solicitudes")
+  @@map("actividad_categorias")
+}
+
+model ActividadEvaluaciones {
+  id          Int       @id @default(autoincrement())
+  actividadId Int       @map("actividad_id")
+  evaluacionId Int       @map("evaluacion_id")
+
+  actividad   Actividad @relation(fields: [actividadId], references: [id])
+  evaluacion  Evaluacion @relation(fields: [evaluacionId], references: [id])
+
+  @@map("actividad_evaluaciones")
+}
+
+model Evaluacion {
+  id            Int       @id @default(autoincrement())
+  evaluadoId    Int       @map("evaluado_id")
+  evaluadorId   Int       @map("evaluador_id")
+  calificacion  Int
+  comentario    String?  @db.Text
+  createdAt     DateTime @default(now()) @map("created_at")
+  
+  propuestas    PropuestaEvaluaciones[]
+  actividades   ActividadEvaluaciones[]
+  evaluador     Usuario   @relation(fields: [evaluadorId], references: [id])
+
+  @@map("evaluaciones")
 }
 
 model Mensaje {

@@ -56,18 +56,19 @@
 						<h3 class="text-xl font-semibold text-green-800">Colonia: {selectedColonia.nombre}</h3>
 						<p class="text-green-700/80">Municipio: {selectedColonia.municipio}</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
 						<p class="text-green-700/80">Ideas: 8</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
 						<p class="text-green-700/80">Propuestas: 10</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
 						<p class="text-green-700/80">Actividades: 2</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-4 mt-4 w-full">
+					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
 						<p class="text-green-700/80">Comunidades: 39</p>
 					</div>
+					<button class="btn btn-primary text-white py-2 mt-4 w-full">Ver más</button>
 				</div>
 			{/if}
 		</div>
