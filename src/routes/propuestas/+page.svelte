@@ -55,21 +55,6 @@
 </script>
 
 <div class="container mx-auto px-4 py-8">
-	<div class="mb-6 flex items-center justify-between">
-		<div class="flex flex-col items-start">
-			<h2 class="mb-2 text-3xl font-bold">Propuestas</h2>
-			<p class="text-sm">
-				La comunidad estudiantil busca estudiantes que vuelvan realidad las ideas
-			</p>
-		</div>
-		<a
-			href="/propuestas/nueva"
-			class="btn btn-primary rounded-md px-4 py-2 text-white transition-colors"
-		>
-			Crear una propuesta
-		</a>
-	</div>
-
 	{#if error}
 		<p class="mb-4 text-red-500">{error}</p>
 	{/if}

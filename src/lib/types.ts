@@ -27,7 +27,14 @@ export type Evaluacion = {
 export type Comunidad = {
 	id: number;
 	nombre: string;
-	municipio: string;
+	imagen: string;
+	descripcion: string;
+	miembros: number;
+	minColaboradores: number;
+	representantes: {
+		nombre: string;
+	}[];
+	maxRepresentantes: number;
 };
 
 export type Categoria = {
