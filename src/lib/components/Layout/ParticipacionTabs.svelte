@@ -5,6 +5,8 @@
 
 	let checked = $state(page.route.id);
     let tipoVista = $derived(checked?.startsWith("/participacion") ? "participacion" : checked?.startsWith("/propuestas") ? "propuestas" : checked?.startsWith("/actividades") ? "actividades" : "ideas");
+    let userIsLogged = $derived(page.data.session != null);
+    
 </script>
 
 
@@ -33,7 +35,7 @@
             {/if}
         </p>
     </div>
-    {#if (tipoVista !== "participacion") && (tipoVista !== "ideas")}
+    {#if (tipoVista !== "participacion") && (tipoVista !== "ideas") && userIsLogged}
         <a
             href={page.route.id?.endsWith("/nueva") ? "" : page.route.id + "/nueva"}
             class="btn btn-primary rounded-md px-4 py-2 text-white transition-colors"
@@ -49,16 +51,16 @@
 </div>
 
 <div role="tablist" class="tabs tabs-lifted">
-	<Tab label="Participación" group="participacion_group" id="/participacion" bind:value={checked} isLink>
+	<Tab label={checked == "/participacion" ? "____________" :  "Participación"} group="participacion_group" id="/participacion" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
-	<Tab label="Propuestas" group="participacion_group" id="/propuestas" bind:value={checked} isLink>
+	<Tab label={checked == "/propuestas" ? "__________" :  "Propuestas"} group="participacion_group" id="/propuestas" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
-	<Tab label="Actividades" group="participacion_group" id="/actividades" bind:value={checked} isLink>
+	<Tab label={checked == "/actividades" ? "___________" :  "Actividades"} group="participacion_group" id="/actividades" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
-	<Tab label="Ideas" group="participacion_group" id="/ideas" bind:value={checked} isLink>
+	<Tab label={checked == "/ideas" ? "_____" :  "Ideas"} group="participacion_group" id="/ideas" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
 </div>

@@ -1,6 +1,4 @@
-import { db } from '$lib/db';
 import { json } from '@sveltejs/kit';
-import * as auth from '$lib/auth';
 import { deleteSessionTokenCookie } from '$lib/auth';
 
 export const POST = async ({ params, request, cookies }) => {

@@ -8,7 +8,7 @@
 	type="radio"
 	name={group}
 	role="tab"
-	class="tab text-lg rounded-box{value === id ? 'font-bold' : ''}"
+	class="tab text-lg rounded-box {value === id ? 'font-bold text-primary' : ''}"
 	aria-label={label}
 	bind:group={value}
 	value={id}
@@ -23,6 +23,6 @@
 
 <style>
 	.tab:is(input[type="radio"]) {
-		@apply w-max  border-2 border-b-0 border-base-200 mx-[1px];
+		@apply w-max border-2 border-b-0 border-base-200 mx-[1px];
 	}
 </style>
