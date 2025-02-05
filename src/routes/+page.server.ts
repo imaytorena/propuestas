@@ -2,7 +2,6 @@ import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
 import { validateSessionToken } from '$lib/server/auth';
 import { getIdeas, getActividades, getPropuestas } from '$lib/data/fake-db';
-import { MOCKUP_DATA } from '$env/static/private';
 
 export const load: PageServerLoad = async ({ cookies, setHeaders }) => {
 	console.log("hello")
@@ -14,10 +13,11 @@ export const load: PageServerLoad = async ({ cookies, setHeaders }) => {
 		// }
 		const {session} = await validateSessionToken(sessionToken ?? '');
 		
-		const ideas = MOCKUP_DATA === 'true' ? await db.idea.findMany() : getIdeas(3);
+		const ideas = await db.idea.findMany();
 		// console.log(ideas);
+		// TODO: get from DB
 		const actividades =  getActividades(4);
-		const propuestas = MOCKUP_DATA === 'true' ? await db.propuesta.findMany() : getPropuestas(3);
+		const propuestas = await db.propuesta.findMany();
 		return {
 			ideas,
 			actividades,
