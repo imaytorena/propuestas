@@ -3,12 +3,19 @@
 	import { page } from '$app/state';
 	const { children } = $props();
 
-	let checked = $state(page.route.id);
-    let tipoVista = $derived(checked?.startsWith("/participacion") ? "participacion" : checked?.startsWith("/propuestas") ? "propuestas" : checked?.startsWith("/actividades") ? "actividades" : "ideas");
+    let { route } = $derived(page);
+	let checked = $state("");
+    let tipoVista = $state("");
     let userIsLogged = $derived(page.data.session != null);
     
+    $effect(() => {
+        checked = route.id?.split("/")[1] ?? "";
+    })
+    
+    $effect(() => {
+        tipoVista = route.id?.startsWith("/participacion") ? "participacion" : route.id?.startsWith("/propuestas") ? "propuestas" : route.id?.startsWith("/actividades") ? "actividades" : "ideas"
+    })
 </script>
-
 
 <div class="mb-6 flex items-center justify-between">
     <div class="flex flex-col items-start">
@@ -51,16 +58,16 @@
 </div>
 
 <div role="tablist" class="tabs tabs-lifted">
-	<Tab label={checked == "/participacion" ? "____________" :  "Participación"} group="participacion_group" id="/participacion" bind:value={checked} isLink>
+	<Tab label={checked == "/participacion" ? "____________" :  "Participación"} group="participacion_group" id="participacion" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
-	<Tab label={checked == "/propuestas" ? "__________" :  "Propuestas"} group="participacion_group" id="/propuestas" bind:value={checked} isLink>
+	<Tab label={checked == "/propuestas" ? "__________" :  "Propuestas"} group="participacion_group" id="propuestas" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
-	<Tab label={checked == "/actividades" ? "___________" :  "Actividades"} group="participacion_group" id="/actividades" bind:value={checked} isLink>
+	<Tab label={checked == "/actividades" ? "___________" :  "Actividades"} group="participacion_group" id="actividades" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
-	<Tab label={checked == "/ideas" ? "_____" :  "Ideas"} group="participacion_group" id="/ideas" bind:value={checked} isLink>
+	<Tab label={checked == "/ideas" ? "_____" :  "Ideas"} group="participacion_group" id="ideas" bind:value={checked} isLink>
 		{@render children()}
 	</Tab>
 </div>

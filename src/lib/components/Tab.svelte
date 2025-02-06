@@ -12,7 +12,7 @@
 	aria-label={label}
 	bind:group={value}
 	value={id}
-	onclick={() => isLink && goto(id)}
+	onclick={() => isLink && goto("/"+id)}
 />
 
 {#if value === id}
