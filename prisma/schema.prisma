@@ -90,10 +90,12 @@ model Propuesta {
   nombre        String    @db.VarChar(255)
   descripcion   String    @db.Text
   fechaEntrega  DateTime? @map("fecha_entrega")
+  multimediaId  Int?      @map("multimedia_id")
   creadorId     Int?      @map("creador_id")
   estado        String    @default("Iniciando") @db.VarChar(50)
   createdAt     DateTime  @default(now()) @map("created_at")
   
+  multimedia    Multimedia? @relation(fields: [multimediaId], references: [id])
   creador       Usuario?  @relation(fields: [creadorId], references: [id])
   categorias    PropuestaCategorias[]
   evaluaciones  PropuestaEvaluaciones[]
@@ -127,12 +129,14 @@ model Actividad {
   id            Int       @id @default(autoincrement())
   nombre        String    @db.VarChar(255)
   descripcion   String    @db.Text
+  multimediaId  Int?      @map("multimedia_id")
   fechaEntrega  DateTime? @map("fecha_entrega")
   creadorId     Int?      @map("creador_id")
   estado        String    @default("Iniciando") @db.VarChar(50)
   createdAt     DateTime  @default(now()) @map("created_at")
   
-  creador       Usuario?  @relation(fields: [creadorId], references: [id])
+  multimedia    Multimedia? @relation(fields: [multimediaId], references: [id])
+  creador       Usuario?    @relation(fields: [creadorId], references: [id])
   categorias    ActividadCategorias[]
   evaluaciones  ActividadEvaluaciones[]
 
@@ -189,16 +193,41 @@ model Mensaje {
   @@map("mensajes")
 }
 
+model Multimedia {
+  id          Int       @id @default(autoincrement())
+  url         String    @db.VarChar(255)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @map("updated_at")
+  
+  @@map("multimedias")
+}
+
+model Ubicacion {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @db.VarChar(255)
+  municipio   String    @db.VarChar(255)
+  coordenadas Json?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @map("updated_at")
+  
+  comunidades Comunidad[]
+
+  @@map("ubicaciones")
+}
+
 model Comunidad {
   id                Int       @id @default(autoincrement())
   nombre            String    @db.VarChar(255)
   descripcion       String    @db.Text
-  imagen            String?   @db.VarChar(255)
+  multimediaId      Int?      @map("multimedia_id")            String?   @db.VarChar(255)
   minColaboradores  Int       @default(1) @map("min_colaboradores")
   maxRepresentantes Int       @default(1) @map("max_representantes")
+  ubicacionId       Int?      @map("ubicacion_id")
   createdAt         DateTime  @default(now()) @map("created_at")
   updatedAt         DateTime  @default(now()) @map("updated_at")
   
+  multimedia       Multimedia? @relation(fields: [multimediaId], references: [id])
+  ubicacion        Ubicacion? @relation(fields: [ubicacionId], references: [id])
   miembros         Miembro[]
   representantes   Representante[]
   categorias       ComunidadCategorias[]

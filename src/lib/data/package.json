@@ -1,0 +1,8 @@
+{
+  "name": "bulk-load-colonias",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "mysql2": "^3.6.5"
+  }
+}
