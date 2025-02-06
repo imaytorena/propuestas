@@ -45,6 +45,7 @@
     "@prisma/extension-accelerate": "^1.2.1",
     "@tailwindcss/typography": "^0.5.15",
     "leaflet": "^1.9.4",
-    "mysql2": "^3.11.0"
+    "mysql2": "^3.11.0",
+    "svelte-multiselect": "^11.0.0-rc.1"
   }
 }
