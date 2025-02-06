@@ -198,7 +198,11 @@ model Multimedia {
   url         String    @db.VarChar(255)
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @default(now()) @map("updated_at")
-  
+
+
+  actividades Actividad[]
+  propuestas Propuesta[]
+  comunidades Comunidad[]
   @@map("multimedias")
 }
 
@@ -219,7 +223,7 @@ model Comunidad {
   id                Int       @id @default(autoincrement())
   nombre            String    @db.VarChar(255)
   descripcion       String    @db.Text
-  multimediaId      Int?      @map("multimedia_id")            String?   @db.VarChar(255)
+  multimediaId      Int?      @map("multimedia_id")
   minColaboradores  Int       @default(1) @map("min_colaboradores")
   maxRepresentantes Int       @default(1) @map("max_representantes")
   ubicacionId       Int?      @map("ubicacion_id")
