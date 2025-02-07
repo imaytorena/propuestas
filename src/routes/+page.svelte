@@ -7,6 +7,7 @@
 	import type { PageData } from './$types.js';
 	import ActividadPreview from '$lib/components/Actividades/ActividadPreview.svelte';
 	import VerMas from '$lib/components/VerMas.svelte';
+	import PropuestasPreview from '$lib/components/Propuestas/PropuestasPreview.svelte';
 
 	const { data } = $props();
 	let { ideas, actividades, propuestas }: PageData = $state(data);
@@ -102,6 +103,16 @@
 			<div class="flex flex-wrap justify-center gap-4">
 				{#each actividades as actividad}
 					<ActividadPreview {actividad} />
+				{/each}
+				<div class="h-[150px] w-full">
+					<VerMas opcion="actividades" />
+				</div>
+			</div>
+		{/if}
+		{#if selectedOption === 'Propuestas' && propuestas?.length}
+			<div class="flex flex-wrap justify-center gap-4">
+				{#each propuestas as propuesta}
+					<PropuestasPreview {propuesta} />
 				{/each}
 				<div class="h-[150px] w-full">
 					<VerMas opcion="actividades" />

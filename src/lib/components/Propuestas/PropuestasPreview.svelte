@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Propuesta } from '$lib/types';
-	let { id, nombre, descripcion, estado, fechaEntrega, categorias }: Propuesta = $props();
+	let { propuesta }: { propuesta: Propuesta } = $props();
+	let { id, nombre, descripcion, estado, fechaEntrega, categorias } = $derived(propuesta);
 </script>
 
 <div class="container flex w-full flex-col gap-4 rounded-lg bg-base-100 p-8 px-4 py-8 shadow-lg">
