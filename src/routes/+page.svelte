@@ -4,8 +4,9 @@
 	import type { Idea, Actividad, Propuesta } from '$lib/types';
 	import PropuestaCard from '$lib/components/Propuestas/PropuestaCard.svelte';
 	import Map from '$lib/components/Map.svelte';
-	import ActividadCard from '$lib/components/Actividades/ActividadCard.svelte';
 	import type { PageData } from './$types.js';
+	import ActividadPreview from '$lib/components/Actividades/ActividadPreview.svelte';
+	import VerMas from '$lib/components/VerMas.svelte';
 
 	const { data } = $props();
 	let { ideas, actividades, propuestas }: PageData = $state(data);
@@ -56,19 +57,19 @@
 						<h3 class="text-xl font-semibold text-green-800">Colonia: {selectedColonia.nombre}</h3>
 						<p class="text-green-700/80">Municipio: {selectedColonia.municipio}</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
+					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
 						<p class="text-green-700/80">Ideas: 8</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
+					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
 						<p class="text-green-700/80">Propuestas: 10</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
+					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
 						<p class="text-green-700/80">Actividades: 2</p>
 					</div>
-					<div class="rounded-lg bg-base-100 p-2 mt-4 w-full">
+					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
 						<p class="text-green-700/80">Comunidades: 39</p>
 					</div>
-					<button class="btn btn-primary text-white py-2 mt-4 w-full">Ver más</button>
+					<button class="btn btn-primary mt-4 w-full py-2 text-white">Ver más</button>
 				</div>
 			{/if}
 		</div>
@@ -93,40 +94,18 @@
 					{#each ideas as idea}
 						<IdeaCard {idea} />
 					{/each}
-					<!-- "Ver más" card -->
-					<div>
-						<a
-							href="/ideas"
-							class="card h-full border-2 border-solid border-base-100 bg-base-100 shadow-xl transition-shadow hover:border-2 hover:border-green-700"
-						>
-							<div class="card-body items-center justify-center text-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="mb-4 h-12 w-12 text-primary"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M13 7l5 5m0 0l-5 5m5-5H6"
-									/>
-								</svg>
-								<h3 class="text-xl font-semibold text-primary">Ver más ideas</h3>
-								<p class="text-base-content/70">Explora todas las ideas de la comunidad</p>
-							</div>
-						</a>
-					</div>
+					<VerMas opcion="ideas" />
 				</div>
 			</div>
 		{/if}
-		{#if selectedOption === 'Actividades'}
+		{#if selectedOption === 'Actividades' && actividades?.length}
 			<div class="flex flex-wrap justify-center gap-4">
 				{#each actividades as actividad}
-					<ActividadCard {...actividad} />
+					<ActividadPreview {actividad} />
 				{/each}
+				<div class="h-[150px] w-full">
+					<VerMas opcion="actividades" />
+				</div>
 			</div>
 		{/if}
 	</section>
