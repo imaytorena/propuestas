@@ -13,12 +13,15 @@ export const load: PageServerLoad = async ({ cookies, setHeaders }) => {
 				}
 			}
 		});
-		const actividades =  getActividades(1);
+		const actividades = await db.actividad.findMany({
+			take: 3,
+			orderBy: { createdAt: 'desc' }
+		});
 		const propuestas = await db.propuesta.findMany({
 			take: 3,
 			orderBy: { createdAt: 'desc' }
 		});
-		// console.log({ ideas, actividades, propuestas });
+		console.log({ propuestas });
 		return {
 			ideas,
 			actividades,

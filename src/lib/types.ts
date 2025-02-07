@@ -46,11 +46,11 @@ export type Actividad = {
 	id: number;
 	nombre: string;
 	descripcion: string;
-	participantes: number;
+	participantes?: number;
 	estado: string | PropuestaEstado;
 	fechaEntrega?: Date | null;
-	comunidades: Comunidad[],
-	categorias: Categoria[] | [];
+	comunidades?: Comunidad[],
+	categorias?: Categoria[] | [];
 };
 
 export type Propuesta = {
