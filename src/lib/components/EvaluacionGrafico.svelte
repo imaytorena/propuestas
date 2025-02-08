@@ -93,7 +93,7 @@
 			</div>
 		</div>
 
-		<div class="flex justify-between text-sm text-gray-600">
+		<div class="hidden md:flex justify-between text-sm text-gray-600">
 			<button
 				class="flex items-center gap-1 hover:text-[#688561] transition-colors"
 				class:text-[#688561]={userVote === 'buena'}
@@ -103,7 +103,7 @@
 					<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 								d="M6 7h11a2 2 0 0 1 2 2v.5a.5.5 0 0 0 .5.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5a.5.5 0 0 0-.5.5v.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2m1 3v4m3-4v4m3-4v4m3-4v4" />
 				</svg>
-				Muy Buena
+				<div class="hidden md:block">Muy Buena</div>
 			</button>
 			<button
 				class="flex items-center gap-1 hover:text-[#B79554] transition-colors"
@@ -114,7 +114,7 @@
 					<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 								d="M6 7h11a2 2 0 0 1 2 2v.5a.5.5 0 0 0 .5.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5a.5.5 0 0 0-.5.5v.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2m1 3v4m3-4v4m3-4v4" />
 				</svg>
-				Regular
+				<div class="hidden md:block">Regular</div>
 			</button>
 			<button
 				class="flex items-center gap-1 hover:text-[#D33C5B] transition-colors"
@@ -125,7 +125,7 @@
 					<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 								d="M6 7h11a2 2 0 0 1 2 2v.5a.5.5 0 0 0 .5.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5a.5.5 0 0 0-.5.5v.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2m1 3v4" />
 				</svg>
-				No tan buena
+				<div class="hidden md:block">No tan buena</div>
 			</button>
 		</div>
 	</div>

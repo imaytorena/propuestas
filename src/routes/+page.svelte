@@ -48,29 +48,34 @@
 		<h2 class="font-delius mb-4 text-center text-xl font-bold text-green-700">
 			Da click en alguna colonia para conocer sus areas de oportunidad
 		</h2>
-		<div class="flex justify-center gap-4">
+		<div class="grid grid-cols-1 lg:flex gap-4">
 			{#if loadedMap}
 				<Map onColoniaClick={handleColoniaClick} />
 			{/if}
 			{#if selectedColonia}
-				<div class="h-max w-[20rem]">
+				<div class="grid grid-cols-2 lg:grid-cols-1 gap-4 items-center">
 					<div class="mt-4 h-max w-full rounded-lg border-2 border-green-100 bg-green-50 p-4">
-						<h3 class="text-xl font-semibold text-green-800">Colonia: {selectedColonia.nombre}</h3>
-						<p class="text-green-700/80">Municipio: {selectedColonia.municipio}</p>
+						<h3 class="text-lg lg:text-xl font-semibold text-green-800">Colonia: {selectedColonia.nombre}</h3>
+						<p class="text-green-700/80 break-words md:break-normal">Municipio: {selectedColonia.municipio}</p>
 					</div>
-					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
-						<p class="text-green-700/80">Ideas: 8</p>
+					<div>
+						<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
+							<p class="text-green-700/80">Ideas: 8</p>
+						</div>
+						<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
+							<p class="text-green-700/80">Propuestas: 10</p>
+						</div>
+						<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
+							<p class="text-green-700/80">Actividades: 2</p>
+						</div>
+						<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
+							<p class="text-green-700/80">Comunidades: 39</p>
+						</div>
+
 					</div>
-					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
-						<p class="text-green-700/80">Propuestas: 10</p>
+					<div class="col-span-2 lg:col-span-1">
+						<button class="btn btn-primary mt-4 w-full py-2 text-white">Ver más</button>
 					</div>
-					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
-						<p class="text-green-700/80">Actividades: 2</p>
-					</div>
-					<div class="mt-4 w-full rounded-lg bg-base-100 p-2">
-						<p class="text-green-700/80">Comunidades: 39</p>
-					</div>
-					<button class="btn btn-primary mt-4 w-full py-2 text-white">Ver más</button>
 				</div>
 			{/if}
 		</div>
@@ -87,10 +92,10 @@
 			{/each}
 		</div>
 		<!-- Ideas Section -->
-		<div class="relative m-12">
+		<div class="mt-6">
 		{#if selectedOption === 'Ideas'}
 				<IdeasCrear {ideas} />
-				<div class="grid grid-cols-2 gap-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<!-- Ideas[] -->
 					{#each ideas as idea}
 						<IdeaCard {idea} />

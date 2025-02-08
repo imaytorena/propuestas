@@ -175,7 +175,7 @@
 				</div>
 
 				<div class="border-t pt-6">
-					<div class="flex items-center justify-between">
+					<div class="flex flex-col md:flex-row items-center justify-center md:justify-between gap-2">
 						<div class="flex items-center text-gray-500">
 							<svg
 								class="w-5 h-5 mr-2"
@@ -191,7 +191,7 @@
 									d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
 								/>
 							</svg>
-							<span>Fecha de entrega: {propuesta.fechaEntrega}</span>
+							<span><span class="hidden md:block">Fecha de entrega:</span><span class="inline md:hidden">Entrega: </span> {propuesta.fechaEntrega}</span>
 						</div>
 
 						<div class="space-x-3">
