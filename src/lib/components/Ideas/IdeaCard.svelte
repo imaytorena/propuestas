@@ -153,7 +153,7 @@
 					</div>
 				</div>
 				<button
-					class="btn btn-primary btn-sm flex text-white max-lg:tooltip"
+					class="btn btn-primary btn-sm flex text-white"
 					data-tip="Crear propuesta"
 				>
 					<span class="sm:hidden lg:block">Crear propuesta</span>
