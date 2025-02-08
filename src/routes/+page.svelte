@@ -8,10 +8,11 @@
 	import ActividadPreview from '$lib/components/Actividades/ActividadPreview.svelte';
 	import VerMas from '$lib/components/VerMas.svelte';
 	import PropuestasPreview from '$lib/components/Propuestas/PropuestasPreview.svelte';
-
+	import { getContext } from 'svelte';
+	
 	const { data } = $props();
 	let { ideas, actividades, propuestas }: PageData = $state(data);
-	let loadedMap = $state(false);
+	let loading : { bar: boolean, map: boolean } = getContext('loading');
 	let selectedColonia: { nombre: string; municipio: string } | null = $state(null);
 	let selectedOption = $state('Ideas');
 
@@ -35,10 +36,12 @@
 	$effect(() => {
 		try {
 			if (L) {
-				loadedMap = true;
+				loading.map = true;
+				loading.bar = false;
 			}
 		} catch (error) {
-			loadedMap = false;
+			loading.map = false;
+			loading.bar = false;
 		}
 	});
 </script>
@@ -49,7 +52,7 @@
 			Da click en alguna colonia para conocer sus areas de oportunidad
 		</h2>
 		<div class="grid grid-cols-1 lg:flex gap-4">
-			{#if loadedMap}
+			{#if loading.map}
 				<Map onColoniaClick={handleColoniaClick} />
 			{/if}
 			{#if selectedColonia}

@@ -125,7 +125,7 @@
 		{@render children()}
 	</Tab>
 	<Tab
-		label={checked == '/ideas' ? '_____' : 'Ideas'}
+		label={checked == 'ideas' ? '_____' : 'Ideas'}
 		group="participacion_group"
 		id="ideas"
 		bind:value={checked}

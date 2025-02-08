@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	// import ActividadesCrear from '$lib/components/Actividades/ActividadesCrear.svelte';
+	import { getContext } from 'svelte';
 
 	const { data } = $props();
 	let { actividades } = $state(data);
+	let loading : { bar: boolean } = getContext('loading');
 
+	$effect(() => {
+		loading.bar = actividades === undefined;
+	})
+	
 	function getEstadoClass(estado: string) {
 		switch (estado) {
 			case 'Iniciado':

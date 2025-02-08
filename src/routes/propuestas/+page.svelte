@@ -1,20 +1,16 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	// import * as m from '$lib/paraglide/messages.js';
 	// import EvaluacionGrafico from '$lib/components/EvaluacionGrafico.svelte';
 	// import EvaluacionBadge from '$lib/components/EvaluacionBadge.svelte';
 	import CategoriaBadge from '$lib/components/CategoriaBadge.svelte';
-
+	import { getContext } from 'svelte';
 	const { data } = $props();
-	let { propuestas } = $state(data);
-	let error = '';
+	
+	let { propuestas } = $derived(data);
+	let loading : { bar: boolean } = getContext('loading');
 
-	onMount(async () => {
-		// try {
-		//   propuestas = await get('/api/propuestas');
-		// } catch (e) {
-		//   error = 'Error al cargar propuestas';
-		// }
+	$effect(() => {
+		loading.bar = propuestas === undefined;
 	});
 
 	function getEstadoClass(estado: string) {
@@ -54,16 +50,12 @@
 	// }
 </script>
 
-{#if propuestas.length === 0}
+{#if !propuestas || propuestas.length === 0}
 	<div class="py-8 text-center">
 		<p class="text-gray-500">No hay propuestas registradas</p>
 	</div>
 {:else}
 	<div class="container mx-auto px-4 py-8">
-		{#if error}
-			<p class="mb-4 text-red-500">{error}</p>
-		{/if}
-
 		<div class="grid grid-cols-1 gap-6">
 			{#each propuestas as propuesta (propuesta.id)}
 				<a class="group" href="/actividades/{propuesta.id}">
