@@ -4,17 +4,13 @@ import { validateSessionToken } from '$lib/auth';
 
 export const load: PageServerLoad = async ({ params, cookies }: any) => {
 	// TODO: obtener las propuestas a las que participa
-    const propuestas = await db.propuesta.findMany({
-        
-    });
+    let propuestas = await db.propuesta.findMany({});
+    propuestas = propuestas.map((p: any) => ({ ...p, tipo: 'propuesta' }));
+    let actividades = await db.actividad.findMany({});
+    actividades = actividades.map((a: any) => ({ ...a, tipo: 'actividad' }));
 
-    // TODO: obtener las actividades a las que participa
-    const actividades = await db.actividad.findMany({
-        
-    });
 
 	return {
-        actividades,
-		propuestas
+        participaciones: [...propuestas, ...actividades]
 	};
 };

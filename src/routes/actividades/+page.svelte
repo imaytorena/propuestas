@@ -4,18 +4,17 @@
 
 	const { data } = $props();
 	let { actividades } = $state(data);
-	let error = '';
 
 	function getEstadoClass(estado: string) {
 		switch (estado) {
-			case 'Pendiente':
-				return 'bg-warning/20 text-warning-content';
+			case 'Iniciado':
+				return 'bg-neutral/40 text-white';
 			case 'En Progreso':
-				return 'bg-info/20 text-info-content';
+				return 'bg-neutral/60 text-white';
 			case 'Finalizado':
-				return 'bg-success/20 text-success-content';
+				return 'bg-neutral/80 text-white';
 			default:
-				return 'bg-neutral/20 text-neutral-content';
+				return 'bg-neutral/60 text-white';
 		}
 	}
 </script>
@@ -28,11 +27,11 @@
 	{:else}
 		<div class="space-y-4">
 			{#each actividades as actividad}
-				<div class="card bg-base-200 shadow-xl">
+				<div class="card bg-base-100 shadow-xl">
 					<div class="card-body">
 						<div class="flex items-start justify-between">
 							<h3 class="card-title">{actividad.nombre}</h3>
-							<span class={`badge ${getEstadoClass(actividad.estado)}`}>
+							<span class={`${getEstadoClass(actividad.estado)} p-2 px-4 rounded-full`}>
 								{actividad.estado}
 							</span>
 						</div>
@@ -40,22 +39,6 @@
 						<div class="text-sm text-gray-500">
 							<!-- <p>Inicio: {new Date(actividad.fechaInicio).toLocaleString()}</p> -->
 							<!-- <p>Fin: {new Date(actividad.fechaFin).toLocaleString()}</p> -->
-						</div>
-						<!-- {#if actividad.propuesta}
-									<div class="mt-2">
-										<span class="text-sm font-medium">Propuesta:</span>
-										<a
-											href="/propuestas/{actividad.propuesta.id}"
-											class="link link-primary text-sm ml-1"
-										>
-											{actividad.propuesta.nombre}
-										</a>
-									</div>
-								{/if} -->
-						<div class="card-actions mt-4 justify-end">
-							<a href="/actividades/{actividad.id}" class="btn btn-primary btn-sm">
-								Ver Detalles
-							</a>
 						</div>
 					</div>
 				</div>
