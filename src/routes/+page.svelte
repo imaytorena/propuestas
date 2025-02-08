@@ -43,7 +43,7 @@
 	});
 </script>
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto p-4">
 	<section class="mb-12">
 		<h2 class="font-delius mb-4 text-center text-xl font-bold text-green-700">
 			Da click en alguna colonia para conocer sus areas de oportunidad

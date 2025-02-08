@@ -15,18 +15,14 @@
 
 <ParaglideJS {i18n}>
 	<div class="qci-layout-bg mx-auto flex min-h-screen max-w-6xl flex-col">
-		<div class="drawer">
-			<input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-			<div class="drawer-content flex flex-col">
-				<div class="w-full">
-					<Navbar />
-				</div>
-				<main class="container mx-auto w-full flex-grow px-4 py-4 font-mono">
-					{#if addParticipacionTabs}
-						<ParticipacionTabs>
-							{@render children()}
-						</ParticipacionTabs>
-					{:else}
+		<div class="flex flex-col w-full">
+			<Navbar />
+			<main class="container mx-auto w-full flex-grow px-4 font-mono">
+				{#if addParticipacionTabs}
+					<ParticipacionTabs>
+						{@render children()}
+					</ParticipacionTabs>
+				{:else}
 						{@render children()}
 					{/if}
 				</main>
@@ -34,5 +30,4 @@
 				<MobileDrawer />
 			</div>
 		</div>
-	</div>
 </ParaglideJS>
