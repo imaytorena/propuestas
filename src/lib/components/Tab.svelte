@@ -4,16 +4,18 @@
 	let { group, label, value = $bindable(), id, children, isLink = false } = $props();
 </script>
 
-<input
-	type="radio"
-	name={group}
-	role="tab"
-	class="tab text-lg rounded-box {value === id ? 'font-bold text-primary' : ''}"
-	aria-label={label}
-	bind:group={value}
-	value={id}
-	onclick={() => isLink && goto("/"+id)}
-/>
+<div class="hidden md:block">
+	<input
+		type="radio"
+		name={group}
+		role="tab"
+		class="tab text-lg rounded-box {value === id ? 'font-bold text-primary' : ''}"
+		aria-label={label}
+		bind:group={value}
+		value={id}
+		onclick={() => isLink && goto("/"+id)}
+	/>
+</div>
 
 {#if value === id}
 	<div role="tabpanel" class="flex-wrap tab-content flex rounded-box">

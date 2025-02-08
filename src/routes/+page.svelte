@@ -12,21 +12,21 @@
 	const { data } = $props();
 	let { ideas, actividades, propuestas }: PageData = $state(data);
 	let loadedMap = $state(false);
-	let selectedColonia = $state(null);
+	let selectedColonia: { nombre: string; municipio: string } | null = $state(null);
 	let selectedOption = $state('Ideas');
 
 	function toggleHistory(idea: Idea) {
-		ideas = ideas.map((i) => ({
+		ideas = ideas?.map((i: Idea & { showingHistory?: boolean; editing?: boolean }) => ({
 			...i,
 			showingHistory: i.id === idea.id ? !i.showingHistory : false,
 			editing: false
-		}));
+		})) ?? [];
 	}
 	const switchOption = (option: string) => {
 		selectedOption = option;
 	};
 
-	function handleColoniaClick(colonia) {
+	function handleColoniaClick(colonia: any) {
 		selectedColonia = colonia;
 		// Aquí puedes filtrar las ideas por colonia o realizar otras acciones
 		console.log('Colonia seleccionada:', colonia);
@@ -87,8 +87,8 @@
 			{/each}
 		</div>
 		<!-- Ideas Section -->
+		<div class="relative m-12">
 		{#if selectedOption === 'Ideas'}
-			<div class="relative m-12">
 				<IdeasCrear {ideas} />
 				<div class="grid grid-cols-2 gap-4">
 					<!-- Ideas[] -->
@@ -97,7 +97,6 @@
 					{/each}
 					<VerMas opcion="ideas" />
 				</div>
-			</div>
 		{/if}
 		{#if selectedOption === 'Actividades' && actividades?.length}
 			<div class="flex flex-wrap justify-center gap-4">
@@ -119,6 +118,7 @@
 				</div>
 			</div>
 		{/if}
+	</div>
 	</section>
 
 	<section class="mt-20">

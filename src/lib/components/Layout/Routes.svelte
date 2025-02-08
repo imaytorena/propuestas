@@ -6,23 +6,23 @@
 	const userIsLogged = $derived(page.data.session);
 </script>
 
-<li>
-	<a
-		href="/"
-		class="btn-link text-black no-underline hover:text-primary"
-		class:active={route === '/'}>Inicio</a
-	>
+<li id="inicio">
+		<a
+			href="/#comunidades"
+			class="btn-link text-black no-underline hover:text-primary snap-start"
+			class:active={route === '/'}>Inicio</a>
 </li>
-<li>
+<li id="participacion">
 	<a
 		href="/participacion"
 		class="btn-link text-black no-underline hover:text-primary"
 		class:active={route?.startsWith('/participacion') ||
 			route?.startsWith('/propuestas') ||
-			route?.startsWith('/actividades')}>Participación</a
+			route?.startsWith('/actividades') ||
+			route?.startsWith('/ideas')}>Participación</a
 	>
 </li>
-<li>
+<li id="comunidades">
 	<a
 		href="/comunidades"
 		class="btn-link text-black no-underline hover:text-primary"
@@ -30,7 +30,7 @@
 	>
 </li>
 {#if showLoginOption}
-	<li class="flex flex-col justify-center">
+	<li id="login" class="flex flex-col justify-center snap-end">
 		<a
 			href="/auth/login"
 			aria-label="Iniciar sesión"
@@ -65,9 +65,9 @@
 		</a>
 	</li>
 {:else if userIsLogged}
-	<li class="flex flex-col justify-center">
+	<li id="usuarios" class="flex flex-col justify-center snap-end">
 		{#if route?.startsWith('/usuario')}
-			<div class="text-primary border-b-[1px] border-b-primary border-solid">
+			<div class="border-b-[1px] border-solid border-b-primary text-primary">
 				<svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" viewBox="0 0 24 24"
 					><path
 						fill="currentColor"
@@ -79,7 +79,7 @@
 			</div>
 		{:else}
 			<a
-				href="/usuario"
+				id="usuario" href="/usuario"
 				aria-label="Perfil del usuario"
 				class="hover:border-b-solid flex items-center text-black no-underline hover:border-b-[1px] hover:border-b-primary hover:text-primary"
 			>
@@ -103,7 +103,10 @@
 		{/if}
 	</li>
 {:else}
-	<li class="hover:border-b-solid flex items-center text-primary no-underline border-b-[1px] border-b-primary">
+	<li
+		id="login"
+		class="hover:border-b-solid flex items-center border-b-[1px] border-b-primary text-primary no-underline"
+	>
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 			><path
 				fill="none"

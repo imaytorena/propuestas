@@ -13,9 +13,9 @@ export type Usuario = {
 	ediciones?: Edicion[];
 	bio?: string;
 	age?: number;
-} | {
-	createdAt: Date;
-	updatedAt: Date;
+} & {
+	createdAt?: Date;
+	updatedAt?: Date;
 };
 
 export type Evaluacion = {
@@ -60,9 +60,9 @@ export type Propuesta = {
 	estado: string | PropuestaEstado;
 	fechaEntrega?: Date | null;
 	categorias?: Categoria[];
-} | {
-	createdAt: Date;
-	updatedAt: Date;
+} & {
+	createdAt?: Date;
+	updatedAt?: Date;
 };
 
 export type Like = {
@@ -70,17 +70,17 @@ export type Like = {
 	ideaId: number;
 	usuarioId?: number | null;
 	ipAddress?: string | null;
-} | {
-	createdAt: Date;
+} & {
+	createdAt?: Date;
 };
 
 export type Edicion = {
 	id: number;
 	ideaId: number;
 	contenido: string;
-} | {
-	createdAt: Date;
-	updatedAt: Date;
+} & {
+	createdAt?: Date;
+	updatedAt?: Date;
 };
 
 export type Idea = {
@@ -88,11 +88,11 @@ export type Idea = {
 	contenido: string;
 	likes?: Like[];
 	ediciones: Edicion[];
-	createdAt: Date;
+	createdAt?: Date;
 	// UI state properties
 	editing?: boolean;
 	showingHistory?: boolean;
-} | {
-	createdAt: Date;
-	updatedAt: Date;
+} & {
+	createdAt?: Date;
+	updatedAt?: Date;
 };

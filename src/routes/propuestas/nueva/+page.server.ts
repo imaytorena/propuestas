@@ -5,6 +5,7 @@ import { validateSessionToken } from '$lib/auth';
 export const load: PageServerLoad = async ({ cookies }) => {
     const sessionToken = cookies.get('auth-session');
     const {session} = await validateSessionToken(sessionToken ?? '');
+    // TODO: Validar session
     const usuario = await db.usuario.findUnique({
         where: {
             id: session?.usuarioId
@@ -14,7 +15,6 @@ export const load: PageServerLoad = async ({ cookies }) => {
         throw new Error("Usuario no encontrado");
     }
 
-    console.log({session})
 	return {
         usuario    
 	};
