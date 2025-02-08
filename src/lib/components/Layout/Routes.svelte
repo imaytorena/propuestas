@@ -6,13 +6,13 @@
 	const userIsLogged = $derived(page.data.session);
 </script>
 
-<li id="inicio">
+<li id="inicio" class="snap-start">
 		<a
-			href="/#comunidades"
-			class="btn-link text-black no-underline hover:text-primary snap-start"
+			href="/"
+			class="btn-link text-black no-underline hover:text-primary"
 			class:active={route === '/'}>Inicio</a>
 </li>
-<li id="participacion">
+<li id="participacion" class="snap-start">
 	<a
 		href="/participacion"
 		class="btn-link text-black no-underline hover:text-primary"
@@ -22,7 +22,7 @@
 			route?.startsWith('/ideas')}>Participación</a
 	>
 </li>
-<li id="comunidades">
+<li id="comunidades" class="snap-start">
 	<a
 		href="/comunidades"
 		class="btn-link text-black no-underline hover:text-primary"
@@ -30,7 +30,7 @@
 	>
 </li>
 {#if showLoginOption}
-	<li id="login" class="flex flex-col justify-center snap-end">
+	<li id="login" class="flex flex-col justify-center snap-start">
 		<a
 			href="/auth/login"
 			aria-label="Iniciar sesión"
@@ -65,7 +65,7 @@
 		</a>
 	</li>
 {:else if userIsLogged}
-	<li id="usuarios" class="flex flex-col justify-center snap-end">
+	<li id="usuarios" class="flex flex-col justify-center snap-start">
 		{#if route?.startsWith('/usuario')}
 			<div class="border-b-[1px] border-solid border-b-primary text-primary">
 				<svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" viewBox="0 0 24 24"
@@ -105,7 +105,7 @@
 {:else}
 	<li
 		id="login"
-		class="hover:border-b-solid flex items-center border-b-[1px] border-b-primary text-primary no-underline"
+		class="hover:border-b-solid flex items-center border-b-[1px] border-b-primary text-primary no-underline snap-start"
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 			><path
