@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import type { PageData } from './$types';
 	const { data } = $props();
 	
 	let { participaciones }: PageData = $derived(data);
 	let loading : { bar: boolean } = getContext('loading');
+	loading.bar = true;
 
-	$effect(() => {
-		loading.bar = participaciones === undefined;
-	})
+	onMount(() => {
+		loading.bar = false;
+	});
 </script>
 
 <div class="container mx-auto py-4">

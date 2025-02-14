@@ -3,14 +3,15 @@
 	// import EvaluacionGrafico from '$lib/components/EvaluacionGrafico.svelte';
 	// import EvaluacionBadge from '$lib/components/EvaluacionBadge.svelte';
 	import CategoriaBadge from '$lib/components/CategoriaBadge.svelte';
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	const { data } = $props();
 	
 	let { propuestas } = $derived(data);
 	let loading : { bar: boolean } = getContext('loading');
+	loading.bar = true;
 
-	$effect(() => {
-		loading.bar = propuestas === undefined;
+	onMount(() => {
+		loading.bar = false;
 	});
 
 	function getEstadoClass(estado: string) {
