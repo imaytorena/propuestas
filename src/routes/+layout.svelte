@@ -14,7 +14,7 @@
 	const { children, data }: PageProps = $props();
 	let addParticipacionTabs = $derived(page.route?.id?.startsWith('/participacion') || page.route?.id?.startsWith('/propuestas') || page.route?.id?.startsWith('/actividades') || page.route?.id?.startsWith('/ideas'));
 
-	let loading = $state({ bar: true, map: false });
+	let loading = $state({ bar: true, map: false, inputs: false });
 	setContext('loading', loading);
 </script>
 

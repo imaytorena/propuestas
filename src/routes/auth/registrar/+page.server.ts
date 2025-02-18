@@ -6,6 +6,9 @@ export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
 		const username = data.get('username');
+		const nombre = data.get('nombre');
+		const primerApellido = data.get('primerApellido');
+		const segundoApellido = data.get('segundoApellido');
 		const email = data.get('email');
 		const password = data.get('password');
 
@@ -33,11 +36,11 @@ export const actions = {
 			await prisma.usuario.create({
 				data: {
 					username: String(username),
+					nombre: String(nombre),
+					primerApellido: String(primerApellido),
+					segundoApellido: String(segundoApellido),
 					correo: String(email),
 					password: String(password), // Note: In production, use proper password hashing
-					nombre: 'string',
-					primerApellido: 'string',
-					segundoApellido: 'string',
 				}
 			});
 
