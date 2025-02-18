@@ -21,7 +21,7 @@ export const load: PageServerLoad = async ({ cookies, setHeaders }) => {
 			take: 3,
 			orderBy: { createdAt: 'desc' }
 		});
-		console.log({ propuestas });
+		// console.log({ propuestas });
 		return {
 			ideas,
 			actividades,

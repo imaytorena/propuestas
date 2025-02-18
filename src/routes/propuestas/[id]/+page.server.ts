@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
             throw new Error("Propuesta no encontrada");
         }
         
-		console.log({propuesta, session})
+		// console.log({propuesta, session})
 		return {
             propuesta
 		};

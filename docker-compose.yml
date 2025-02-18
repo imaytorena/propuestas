@@ -1,6 +1,12 @@
 version: '3.8'
 
 services:
+  mail:
+    container_name: my_maildev
+    image: maildev/maildev:latest
+    ports:
+      - 1080:1080
+      - 1025:1025
   mysql:
     image: mysql:8
     container_name: my_mysql

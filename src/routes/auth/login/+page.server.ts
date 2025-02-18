@@ -3,6 +3,8 @@ import type { Actions } from './$types';
 import prisma from '$lib/db';
 import { generateSessionToken, sessionCookieName, setSessionTokenCookie } from '$lib/auth';
 import { verifyPasswordHash } from '$lib/auth/password';
+import { nuevoUsuario } from '$lib/emails';
+
 
 export const actions = {
 	default: async ({ request, cookies, getClientAddress }) => {
@@ -51,6 +53,7 @@ export const actions = {
 				sameSite: 'strict'
 			});
 
+			await nuevoUsuario(user.correo, user.nombre);
 			return {success: true};
 			// throw redirect(302, '/');
 		} catch (error) {
