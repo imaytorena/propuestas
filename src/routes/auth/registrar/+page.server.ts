@@ -1,6 +1,7 @@
 import { fail, redirect, json } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import prisma from '$lib/db';
+import { hashPassword } from '$lib/auth/password';
 
 export const actions = {
 	default: async ({ request }) => {
@@ -40,7 +41,7 @@ export const actions = {
 					primerApellido: String(primerApellido),
 					segundoApellido: String(segundoApellido),
 					correo: String(email),
-					password: String(password), // Note: In production, use proper password hashing
+					password: await hashPassword(String(password)),
 				}
 			});
 

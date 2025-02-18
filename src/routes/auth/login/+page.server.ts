@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import prisma from '$lib/db';
 import { generateSessionToken, sessionCookieName, setSessionTokenCookie } from '$lib/auth';
+import { verifyPasswordHash } from '$lib/auth/password';
 
 export const actions = {
 	default: async ({ request, cookies, getClientAddress }) => {
@@ -15,14 +16,18 @@ export const actions = {
 		}
 
 		try {
+			// Check if user exists
 			const user = await prisma.usuario.findFirst({
 				where: {
-					username: String(username),
-					password: String(password) // Note: In production, use proper password hashing
+					username: String(username)
 				}
 			});
-
 			if (!user) {
+				return fail(400, { message: 'Invalid credentials', incorrect: true });
+			}
+			const passwordMatch = await verifyPasswordHash(user.password, String(password));
+
+			if (!user || !passwordMatch) {
 				return fail(400, { message: 'Invalid credentials', incorrect: true });
 			}
 
