@@ -59,7 +59,7 @@
 	<div class="container mx-auto px-4 py-8">
 		<div class="grid grid-cols-1 gap-6">
 			{#each propuestas as propuesta (propuesta.id)}
-				<a class="group" href="/actividades/{propuesta.id}">
+				<a class="group" href="/propuestas/{propuesta.id}">
 					<div
 						class="rounded-lg bg-base-100 p-6 shadow-md transition-shadow hover:cursor-pointer hover:shadow-lg"
 					>
