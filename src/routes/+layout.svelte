@@ -9,6 +9,7 @@
 	import LoadingBar from '$lib/components/Layout/LoadingBar.svelte';
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import ParticipacionTabs from '$lib/components/Layout/ParticipacionTabs.svelte';
+  	import { SvelteToast } from '@zerodevx/svelte-toast'
 	import { getContext, setContext } from 'svelte';
 
 	const { children, data }: PageProps = $props();
@@ -19,6 +20,7 @@
 </script>
 
 <ParaglideJS {i18n}>
+	<SvelteToast />
 	<div class="qci-layout-bg mx-auto flex min-h-screen max-w-6xl flex-col">
 		<div class="flex flex-col w-full">
 			{#if loading.bar}

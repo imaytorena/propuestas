@@ -2,8 +2,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import prisma from '$lib/db';
 import { generateSessionToken, sessionCookieName, setSessionTokenCookie } from '$lib/auth';
-import { verifyPasswordHash } from '$lib/auth/password';
-import { nuevoUsuario } from '$lib/emails';
+import { verifyPasswordHash } from '$lib/auth/password'; 
+import { nuevaSession } from '$lib/emails/resources/auth';
 
 
 export const actions = {
@@ -14,30 +14,30 @@ export const actions = {
 		const ipAddress = getClientAddress();
 
 		if (!username || !password) {
-			return fail(400, { message: 'Username and password are required', missing: !username || !password });
+			return fail(400, { message: 'Usuario o contraseña son requeridos', missing: !username || !password });
 		}
 
 		try {
 			// Check if user exists
-			const user = await prisma.usuario.findFirst({
+			const usuario = await prisma.usuario.findFirst({
 				where: {
 					username: String(username)
 				}
 			});
-			if (!user) {
-				return fail(400, { message: 'Invalid credentials', incorrect: true });
+			if (!usuario) {
+				return fail(400, { message: 'Credenciales incorrectas', incorrect: true });
 			}
-			const passwordMatch = await verifyPasswordHash(user.password, String(password));
+			const passwordMatch = await verifyPasswordHash(usuario.password, String(password));
 
-			if (!user || !passwordMatch) {
-				return fail(400, { message: 'Invalid credentials', incorrect: true });
+			if (!usuario || !passwordMatch) {
+				return fail(400, { message: 'Credenciales incorrectas', incorrect: true });
 			}
 
 			const token = generateSessionToken();
 			await prisma.session.create({
 				data: {
 					id: token,
-					usuarioId: user.id,
+					usuarioId: usuario.id,
 					annon: false,
 					ipAddress,
 					expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
@@ -53,12 +53,11 @@ export const actions = {
 				sameSite: 'strict'
 			});
 
-			await nuevoUsuario(user.correo, user.nombre);
-			return {success: true};
-			// throw redirect(302, '/');
+			await nuevaSession(usuario.correo, usuario);
+			return { success: true, usuario: usuario.nombre };
 		} catch (error) {
 			console.error('Login error:', error);
-			return fail(500, { message: 'Internal server error' });
+			return fail(500, { message: 'Error interno del servidor', error });
 		}
 	}
 } satisfies Actions;

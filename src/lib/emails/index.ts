@@ -1,1 +1,0 @@
-export * from './resources/nuevo_usuario'

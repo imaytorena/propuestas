@@ -1,39 +1,39 @@
 <script lang="ts">
+	import type { PageProps } from './$types';
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { getContext } from 'svelte';
-	const { data, form } = $props();
-	let loading : { bar: boolean, inputs: boolean } = getContext('loading');
+	import { toast } from '@zerodevx/svelte-toast'
+	let loading: { bar: boolean; inputs: boolean } = getContext('loading');
 
-	let isSubmitting = $state(false);
+	let { data, form }: PageProps = $props();
 	
 	$effect(() => {
 		if (data?.session) {
 			goto('/');
 		}
 		loading.inputs = false;
+		loading.bar = false;
 	});
 
 	$effect(() => {
-		if(form?.success){
+		console.log({ form, data });
+		if (form?.success) {
+			toast.push('Inicio de sesión exitoso. Bienvenido, ' + form.usuario);
 			goto('/');
+		} else if (form?.incorrect) {
+			toast.push(form?.message ?? 'Usuario o contraseña incorrectos');
+		} else if (form?.missing) {
+			toast.push(form?.message ?? 'Por favor, complete todos los campos');
 		}
-		if(isSubmitting){
-			loading.inputs = true;	
-		} else {
-			loading.inputs = false;
-		}
-		if (form?.incorrect || form?.missing) {
-			loading.inputs = false;
-		}
+		loading.inputs = false;
+		loading.bar = false;
 	});
 </script>
-
-<div class="min-h-[60vh] flex flex-col justify-center max-w-md w-full space-y-8 mx-auto">
+  
+  <div class="mx-auto flex min-h-[60vh] w-full max-w-md flex-col justify-center space-y-8">
 	<div>
-		<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-			Iniciar Sesión
-		</h2>
+		<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Iniciar Sesión</h2>
 		<p class="mt-2 text-center text-sm text-gray-600">
 			¿No tienes una cuenta?
 			<a href="/auth/registrar" class="font-medium text-primary hover:text-primary/90">
@@ -43,45 +43,44 @@
 	</div>
 	<form
 		method="POST"
-		class="flex flex-col gap-6 mt-8"
-		on:submit|preventDefault={() => isSubmitting = true}
+		class="mt-8 flex flex-col gap-6"
 		use:enhance
 	>
 		<!-- <div class="rounded-md shadow-sm -space-y-px"> -->
-			<div>
-				<label for="username" class="sr-only">Usuario</label>
-				<input
-					id="username"
-					name="username"
-					type="text"
-					required
-					class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-					placeholder="Usuario"
-				/>
-			</div>
-			<div>
-				<label for="password" class="sr-only">Contraseña</label>
-				<input
-					id="password"
-					name="password"
-					type="password"
-					required
-					class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-					placeholder="Contraseña"
-				/>
-			</div>
+		<div>
+			<label for="username" class="sr-only">Usuario</label>
+			<input
+				id="username"
+				name="username"
+				type="text"
+				required
+				class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+				placeholder="Usuario"
+			/>
+		</div>
+		<div>
+			<label for="password" class="sr-only">Contraseña</label>
+			<input
+				id="password"
+				name="password"
+				type="password"
+				required
+				class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+				placeholder="Contraseña"
+			/>
+		</div>
 		<!-- </div> -->
 
 		<div>
 			<button
 				type="submit"
 				disabled={loading.inputs}
-				class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-				>
+				class="group relative flex w-full justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+			>
 				{#if loading.inputs}
-					<span class="absolute left-0 inset-y-0 flex items-center pl-3">
+					<span class="absolute inset-y-0 left-0 flex items-center pl-3">
 						<svg
-							class="animate-spin h-5 w-5 text-white"
+							class="h-5 w-5 animate-spin text-white"
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
@@ -107,8 +106,6 @@
 				{/if}
 			</button>
 		</div>
-		{#if form?.missing}<span class="text-danger">The email field is required</span>{/if}
-		{#if form?.incorrect}<span class="text-danger">Invalid credentials!</span>{/if}
 	</form>
 </div>
 <!-- </div> -->
