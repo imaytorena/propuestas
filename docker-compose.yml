@@ -1,25 +1,17 @@
-version: '3.8'
-
+name: qci
+networks:
+  qci:
 services:
-  mail:
-    container_name: my_maildev
-    image: maildev/maildev:latest
-    ports:
-      - 1080:1080
-      - 1025:1025
-  mysql:
-    image: mysql:8
-    container_name: my_mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
-      MYSQL_DATABASE: mydatabase
-    ports:
-      - "3308:3306"
+  qci-web:
+    #Comentar dependiendo del sistema operativo
+    platform: linux/amd64
+    container_name: qci-web
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
     volumes:
-      - mysql_data:/var/lib/mysql
-
-volumes:
-  mysql_data:
+      - .:/app
+    ports:
+      - "5173:5173"
+    networks:
+      - qci

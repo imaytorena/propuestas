@@ -1,84 +1,84 @@
 // This is your Prisma schema file
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "library"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
 model Carrera {
-  id                Int       @id @default(autoincrement())
-  nombre            String    @db.VarChar(255)
-  centroUniversitario String  @map("centro_universitario") @db.VarChar(255)
-  usuarios          Usuario[]
+  id                  Int       @id @default(autoincrement())
+  nombre              String    @db.VarChar(255)
+  centroUniversitario String    @map("centro_universitario") @db.VarChar(255)
+  usuarios            Usuario[]
 
   @@map("carreras")
 }
 
 model Usuario {
-  id              Int       @id @default(autoincrement())
-  nombre          String    @db.VarChar(255)
-  primerApellido  String    @map("primer_apellido") @db.VarChar(255)
-  segundoApellido String    @map("segundo_apellido") @db.VarChar(255)
-  username        String    @unique @db.VarChar(32)
-  correo          String    @unique @db.VarChar(255)
-  password        String    @db.VarChar(255)
-  carreraId       Int?      @map("carrera_id")
-  bio             String?   @db.Text
+  id              Int      @id @default(autoincrement())
+  nombre          String   @db.VarChar(255)
+  primerApellido  String   @map("primer_apellido") @db.VarChar(255)
+  segundoApellido String   @map("segundo_apellido") @db.VarChar(255)
+  username        String   @unique @db.VarChar(32)
+  correo          String   @unique @db.VarChar(255)
+  password        String   @db.VarChar(255)
+  carreraId       Int?     @map("carrera_id")
+  bio             String?  @db.Text
   age             Int?
-  createdAt       DateTime  @default(now()) @map("created_at")
-  
-  carrera         Carrera?  @relation(fields: [carreraId], references: [id])
-  habilidades     UsuariosHabilidades[]
-  sessions        Session[]
-  propuestas      Propuesta[]
-  actividades     Actividad[]
-  evaluaciones    Evaluacion[]
-  mensajesEnviados Mensaje[] @relation("MensajesEnviados")
-  mensajesRecibidos Mensaje[] @relation("MensajesRecibidos")
-  representante    Representante[]
-  miembros        Miembro[]
-  likes           Like[]
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  carrera           Carrera?              @relation(fields: [carreraId], references: [id])
+  habilidades       UsuariosHabilidades[]
+  sessions          Session[]
+  propuestas        Propuesta[]
+  actividades       Actividad[]
+  evaluaciones      Evaluacion[]
+  mensajesEnviados  Mensaje[]             @relation("MensajesEnviados")
+  mensajesRecibidos Mensaje[]             @relation("MensajesRecibidos")
+  representante     Representante[]
+  miembros          Miembro[]
+  likes             Like[]
 
   @@map("usuarios")
 }
 
 model Session {
-  id          String   @id @db.VarChar(255)
-  usuarioId   Int?     @map("usuario_id")
-  annon       Boolean? @default(false)
-  ipAddress   String?  @map("ip_address") @db.VarChar(50)
-  expiresAt   DateTime @map("expires_at")
-  usuario     Usuario? @relation(fields: [usuarioId], references: [id])
+  id        String   @id @db.VarChar(255)
+  usuarioId Int?     @map("usuario_id")
+  annon     Boolean? @default(false)
+  ipAddress String?  @map("ip_address") @db.VarChar(50)
+  expiresAt DateTime @map("expires_at")
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
 
   @@map("session")
 }
 
 model Habilidad {
-  id        Int       @id @default(autoincrement())
-  nombre    String    @db.VarChar(255)
-  usuarios  UsuariosHabilidades[]
+  id       Int                   @id @default(autoincrement())
+  nombre   String                @db.VarChar(255)
+  usuarios UsuariosHabilidades[]
 
   @@map("habilidades")
 }
 
 model UsuariosHabilidades {
-  usuarioId    Int      @map("usuario_id")
-  habilidadId  Int      @map("habilidad_id")
-  usuario      Usuario  @relation(fields: [usuarioId], references: [id])
-  habilidad    Habilidad @relation(fields: [habilidadId], references: [id])
+  usuarioId   Int       @map("usuario_id")
+  habilidadId Int       @map("habilidad_id")
+  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
+  habilidad   Habilidad @relation(fields: [habilidadId], references: [id])
 
   @@id([usuarioId, habilidadId])
   @@map("usuarios_habilidades")
 }
 
 model Categoria {
-  id        Int       @id @default(autoincrement())
-  nombre    String    @db.VarChar(255)
-  propuestas PropuestaCategorias[]
+  id          Int                   @id @default(autoincrement())
+  nombre      String                @db.VarChar(255)
+  propuestas  PropuestaCategorias[]
   actividades ActividadCategorias[]
   comunidades ComunidadCategorias[]
 
@@ -86,155 +86,155 @@ model Categoria {
 }
 
 model Propuesta {
-  id            Int       @id @default(autoincrement())
-  nombre        String    @db.VarChar(255)
-  descripcion   String    @db.Text
-  fechaEntrega  DateTime? @map("fecha_entrega")
-  multimediaId  Int?      @map("multimedia_id")
-  creadorId     Int?      @map("creador_id")
-  estado        String    @default("Iniciando") @db.VarChar(50)
-  createdAt     DateTime  @default(now()) @map("created_at")
-  
-  multimedia    Multimedia? @relation(fields: [multimediaId], references: [id])
-  creador       Usuario?  @relation(fields: [creadorId], references: [id])
-  categorias    PropuestaCategorias[]
-  evaluaciones  PropuestaEvaluaciones[]
+  id           Int       @id @default(autoincrement())
+  nombre       String    @db.VarChar(255)
+  descripcion  String    @db.Text
+  fechaEntrega DateTime? @map("fecha_entrega")
+  multimediaId Int?      @map("multimedia_id")
+  creadorId    Int?      @map("creador_id")
+  estado       String    @default("Iniciando") @db.VarChar(50)
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  multimedia   Multimedia?             @relation(fields: [multimediaId], references: [id])
+  creador      Usuario?                @relation(fields: [creadorId], references: [id])
+  categorias   PropuestaCategorias[]
+  evaluaciones PropuestaEvaluaciones[]
 
   @@map("propuestas")
 }
 
 model PropuestaEvaluaciones {
-  id          Int       @id @default(autoincrement())
-  propuestaId Int       @map("propuesta_id")
-  evaluacionId Int       @map("evaluacion_id")
+  id           Int @id @default(autoincrement())
+  propuestaId  Int @map("propuesta_id")
+  evaluacionId Int @map("evaluacion_id")
 
-  propuesta   Propuesta @relation(fields: [propuestaId], references: [id])
-  evaluacion  Evaluacion @relation(fields: [evaluacionId], references: [id])
+  propuesta  Propuesta  @relation(fields: [propuestaId], references: [id])
+  evaluacion Evaluacion @relation(fields: [evaluacionId], references: [id])
 
   @@map("propuesta_evaluaciones")
 }
 
 model PropuestaCategorias {
-  id          Int       @id @default(autoincrement())
-  propuestaId Int       @map("propuesta_id")
-  categoriaId Int       @map("categoria_id")
-  
-  propuesta   Propuesta @relation(fields: [propuestaId], references: [id])
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  id          Int @id @default(autoincrement())
+  propuestaId Int @map("propuesta_id")
+  categoriaId Int @map("categoria_id")
+
+  propuesta Propuesta @relation(fields: [propuestaId], references: [id])
+  categoria Categoria @relation(fields: [categoriaId], references: [id])
 
   @@map("propuesta_categorias")
 }
 
 model Actividad {
-  id            Int       @id @default(autoincrement())
-  nombre        String    @db.VarChar(255)
-  descripcion   String    @db.Text
-  multimediaId  Int?      @map("multimedia_id")
-  fechaEntrega  DateTime? @map("fecha_entrega")
-  creadorId     Int?      @map("creador_id")
-  estado        String    @default("Iniciando") @db.VarChar(50)
-  createdAt     DateTime  @default(now()) @map("created_at")
-  
-  multimedia    Multimedia? @relation(fields: [multimediaId], references: [id])
-  creador       Usuario?    @relation(fields: [creadorId], references: [id])
-  categorias    ActividadCategorias[]
-  evaluaciones  ActividadEvaluaciones[]
+  id           Int       @id @default(autoincrement())
+  nombre       String    @db.VarChar(255)
+  descripcion  String    @db.Text
+  multimediaId Int?      @map("multimedia_id")
+  fechaEntrega DateTime? @map("fecha_entrega")
+  creadorId    Int?      @map("creador_id")
+  estado       String    @default("Iniciando") @db.VarChar(50)
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  multimedia   Multimedia?             @relation(fields: [multimediaId], references: [id])
+  creador      Usuario?                @relation(fields: [creadorId], references: [id])
+  categorias   ActividadCategorias[]
+  evaluaciones ActividadEvaluaciones[]
 
   @@map("actividades")
 }
 
 model ActividadCategorias {
-  id          Int       @id @default(autoincrement())
-  actividadId Int       @map("actividad_id")
-  categoriaId Int       @map("categoria_id")
-  
-  actividad   Actividad @relation(fields: [actividadId], references: [id])
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  id          Int @id @default(autoincrement())
+  actividadId Int @map("actividad_id")
+  categoriaId Int @map("categoria_id")
+
+  actividad Actividad @relation(fields: [actividadId], references: [id])
+  categoria Categoria @relation(fields: [categoriaId], references: [id])
 
   @@map("actividad_categorias")
 }
 
 model ActividadEvaluaciones {
-  id          Int       @id @default(autoincrement())
-  actividadId Int       @map("actividad_id")
-  evaluacionId Int       @map("evaluacion_id")
+  id           Int @id @default(autoincrement())
+  actividadId  Int @map("actividad_id")
+  evaluacionId Int @map("evaluacion_id")
 
-  actividad   Actividad @relation(fields: [actividadId], references: [id])
-  evaluacion  Evaluacion @relation(fields: [evaluacionId], references: [id])
+  actividad  Actividad  @relation(fields: [actividadId], references: [id])
+  evaluacion Evaluacion @relation(fields: [evaluacionId], references: [id])
 
   @@map("actividad_evaluaciones")
 }
 
 model Evaluacion {
-  id            Int       @id @default(autoincrement())
-  evaluadoId    Int       @map("evaluado_id")
-  evaluadorId   Int       @map("evaluador_id")
-  calificacion  Int
-  comentario    String?  @db.Text
-  createdAt     DateTime @default(now()) @map("created_at")
-  
-  propuestas    PropuestaEvaluaciones[]
-  actividades   ActividadEvaluaciones[]
-  evaluador     Usuario   @relation(fields: [evaluadorId], references: [id])
+  id           Int      @id @default(autoincrement())
+  evaluadoId   Int      @map("evaluado_id")
+  evaluadorId  Int      @map("evaluador_id")
+  calificacion Int
+  comentario   String?  @db.Text
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  propuestas  PropuestaEvaluaciones[]
+  actividades ActividadEvaluaciones[]
+  evaluador   Usuario                 @relation(fields: [evaluadorId], references: [id])
 
   @@map("evaluaciones")
 }
 
 model Mensaje {
-  id          Int       @id @default(autoincrement())
-  emisorId    Int       @map("emisor_id")
-  receptorId  Int       @map("receptor_id")
-  contenido   String    @db.Text
-  createdAt   DateTime  @default(now()) @map("created_at")
-  
-  emisor      Usuario   @relation("MensajesEnviados", fields: [emisorId], references: [id])
-  receptor    Usuario   @relation("MensajesRecibidos", fields: [receptorId], references: [id])
+  id         Int      @id @default(autoincrement())
+  emisorId   Int      @map("emisor_id")
+  receptorId Int      @map("receptor_id")
+  contenido  String   @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  emisor   Usuario @relation("MensajesEnviados", fields: [emisorId], references: [id])
+  receptor Usuario @relation("MensajesRecibidos", fields: [receptorId], references: [id])
 
   @@map("mensajes")
 }
 
 model Multimedia {
-  id          Int       @id @default(autoincrement())
-  url         String    @db.VarChar(255)
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @default(now()) @map("updated_at")
-
+  id        Int      @id @default(autoincrement())
+  url       String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
 
   actividades Actividad[]
-  propuestas Propuesta[]
+  propuestas  Propuesta[]
   comunidades Comunidad[]
+
   @@map("multimedias")
 }
 
 model Ubicacion {
-  id          Int       @id @default(autoincrement())
-  nombre      String    @db.VarChar(255)
-  municipio   String    @db.VarChar(255)
+  id          Int      @id @default(autoincrement())
+  nombre      String   @db.VarChar(255)
+  municipio   String   @db.VarChar(255)
   coordenadas Json?
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @default(now()) @map("updated_at")
-  
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @map("updated_at")
+
   comunidades Comunidad[]
 
   @@map("ubicaciones")
 }
 
 model Comunidad {
-  id                Int       @id @default(autoincrement())
-  nombre            String    @db.VarChar(255)
-  descripcion       String    @db.Text
-  multimediaId      Int?      @map("multimedia_id")
-  minColaboradores  Int       @default(1) @map("min_colaboradores")
-  maxRepresentantes Int       @default(1) @map("max_representantes")
-  ubicacionId       Int?      @map("ubicacion_id")
-  createdAt         DateTime  @default(now()) @map("created_at")
-  updatedAt         DateTime  @default(now()) @map("updated_at")
-  
-  multimedia       Multimedia? @relation(fields: [multimediaId], references: [id])
-  ubicacion        Ubicacion? @relation(fields: [ubicacionId], references: [id])
-  miembros         Miembro[]
-  representantes   Representante[]
-  categorias       ComunidadCategorias[]
+  id                Int      @id @default(autoincrement())
+  nombre            String   @db.VarChar(255)
+  descripcion       String   @db.Text
+  multimediaId      Int?     @map("multimedia_id")
+  minColaboradores  Int      @default(1) @map("min_colaboradores")
+  maxRepresentantes Int      @default(1) @map("max_representantes")
+  ubicacionId       Int?     @map("ubicacion_id")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @map("updated_at")
+
+  multimedia     Multimedia?           @relation(fields: [multimediaId], references: [id])
+  ubicacion      Ubicacion?            @relation(fields: [ubicacionId], references: [id])
+  miembros       Miembro[]
+  representantes Representante[]
+  categorias     ComunidadCategorias[]
 
   @@map("comunidades")
 }
@@ -246,67 +246,67 @@ model Representante {
   fechaInicio DateTime  @default(now()) @map("fecha_inicio")
   fechaFin    DateTime? @map("fecha_fin")
   activo      Boolean   @default(true)
-  
-  comunidad   Comunidad @relation(fields: [comunidadId], references: [id])
-  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
+
+  comunidad Comunidad @relation(fields: [comunidadId], references: [id])
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
 
   @@map("representantes")
 }
 
 model Miembro {
-  id          Int       @id @default(autoincrement())
-  comunidadId Int       @map("comunidad_id")
-  usuarioId   Int       @map("usuario_id")
-  rol         String    @db.VarChar(50)
-  fechaUnion  DateTime  @default(now()) @map("fecha_union")
-  
-  comunidad   Comunidad @relation(fields: [comunidadId], references: [id])
-  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
+  id          Int      @id @default(autoincrement())
+  comunidadId Int      @map("comunidad_id")
+  usuarioId   Int      @map("usuario_id")
+  rol         String   @db.VarChar(50)
+  fechaUnion  DateTime @default(now()) @map("fecha_union")
+
+  comunidad Comunidad @relation(fields: [comunidadId], references: [id])
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
 
   @@map("miembros")
 }
 
 model ComunidadCategorias {
-  comunidadId Int       @map("comunidad_id")
-  categoriaId Int       @map("categoria_id")
-  
-  comunidad   Comunidad @relation(fields: [comunidadId], references: [id])
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  comunidadId Int @map("comunidad_id")
+  categoriaId Int @map("categoria_id")
+
+  comunidad Comunidad @relation(fields: [comunidadId], references: [id])
+  categoria Categoria @relation(fields: [categoriaId], references: [id])
 
   @@id([comunidadId, categoriaId])
   @@map("comunidad_categorias")
 }
 
 model Idea {
-  id          Int       @id @default(autoincrement())
-  likes       Like[]
-  contenido      String    @db.VarChar(255)
-  createdAt   DateTime  @default(now()) @map("created_at")
-  ediciones   Edicion[]
+  id        Int       @id @default(autoincrement())
+  likes     Like[]
+  contenido String    @db.VarChar(255)
+  createdAt DateTime  @default(now()) @map("created_at")
+  ediciones Edicion[]
 
   @@map("ideas")
 }
 
 model Edicion {
-  id          Int       @id @default(autoincrement())
-  ideaId      Int       @map("idea_id")
-  contenido   String    @db.Text
-  createdAt   DateTime  @default(now()) @map("created_at")
-  
-  idea        Idea      @relation(fields: [ideaId], references: [id])
+  id        Int      @id @default(autoincrement())
+  ideaId    Int      @map("idea_id")
+  contenido String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  idea Idea @relation(fields: [ideaId], references: [id])
 
   @@map("ediciones")
 }
 
 model Like {
-  id          Int       @id @default(autoincrement())
-  ideaId      Int       @map("idea_id")
-  usuarioId   Int?      @map("usuario_id")
-  ipAddress   String    @map("ip_address") @db.VarChar(50)
-  createdAt   DateTime  @default(now()) @map("created_at")
-  
-  idea        Idea      @relation(fields: [ideaId], references: [id])
-  usuario     Usuario?  @relation(fields: [usuarioId], references: [id])
+  id        Int      @id @default(autoincrement())
+  ideaId    Int      @map("idea_id")
+  usuarioId Int?     @map("usuario_id")
+  ipAddress String   @map("ip_address") @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  idea    Idea     @relation(fields: [ideaId], references: [id])
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
 
   @@unique([ideaId, ipAddress, usuarioId])
   @@map("likes")
